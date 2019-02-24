@@ -13,7 +13,7 @@ class Review(models.Model):
 )
   text = models.CharField(max_length=10000, blank=False)
   pub_date = models.DateTimeField('date published', blank=False)
-  reviewer = models.ForeignKey(User, on_delete=models.PROTECT, blank=False)
+  reviewer = models.ForeignKey('User', on_delete=models.PROTECT, blank=False)
   neighborhood = models.CharField(max_length=3, choices=neighborhoods)
   address = models.CharField(max_length=100, blank=False)
   stars = models.IntegerField(validators=[MinValueValidator(0),MaxValueValidator(5)], blank=False)
