@@ -33,4 +33,5 @@ class Review(models.Model):
 class User(models.Model):
   first_name = models.CharField(max_length=30, blank=False)
   last_name = models.CharField(max_length=30, blank=False)
+  email = models.CharField(max_length=30, blank=False, null=True)
   reviews = models.ManyToManyField(Review)
