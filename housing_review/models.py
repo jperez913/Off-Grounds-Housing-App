@@ -1,23 +1,37 @@
 from django.db import models
+from django.core.validators import MinValueValidator, MaxValueValidator
+import datetime
 
 # Create your models here.
+class Review(models.Model):
+  neighborhoods = (
+    ('Wertland', 'Wertland'),
+    ('Rugby', 'Rugby'),
+    ('14th Street', '14th Street'),
+    ('JPA', 'JPA',),
+    ('Main Street', 'Main Street')
+)
+  text = models.CharField(max_length=10000, blank=False)
+  pub_date = models.DateTimeField('date published', blank=False)
+  reviewer = models.ForeignKey('User', on_delete=models.PROTECT, blank=False)
+  neighborhood = models.CharField(max_length=3, choices=neighborhoods)
+  address = models.CharField(max_length=100, blank=False)
+  stars = models.IntegerField(validators=[MinValueValidator(0),MaxValueValidator(5)], blank=False)
+  price = models.FloatField(blank=True)
+  parking = models.BooleanField(blank=True)
+  bedrooms = models.IntegerField(validators=[MinValueValidator(1),MaxValueValidator(100)], blank=True)
+  bathrooms = models.IntegerField(validators=[MinValueValidator(1),MaxValueValidator(100)], blank=True)
+  pets = models.BooleanField(blank=True)
+  pool = models.BooleanField(blank=True)
+  distance_to_newcomb = models.FloatField(blank=True) #we generate this
+  utilities_cost = models.FloatField(blank=True)
+  utilities_provided = models.CharField(max_length=500, blank=True)
+  amenities_provided = models.CharField(max_length=500, blank=True)
 
-class User(model.Model):
-    user_id = models.CharField(max_length=50)
-    user_name = models.CharField(max_length=50)
 
-class Review(model.Model):
-    UTILITIES = [('light', 'light bill'), ('water', 'water bill'), ('electric', 'electricity bill'), ('gas', 'gas bill'), ('internet', 'internet bill')]
-    AMENITIES = [('furniture', 'furniture'), ('refrigerator', 'refrigerator'), ('bed', 'bed frame')]
-    creator_id = models.ForeignKey(User, on_delete=models.CASCADE)
-    address = models.CharField(max_length=50)
-    about_text = models.TextField()
-    price = models.CharField(max_length=8)
-    parking = models.BooleanField()
-    num_bedrooms = models.IntegerField()
-    num_bathrooms = models.IntegerField()
-    pets = models.BooleanField()
-    distance_to_central_grounds = models.DecimalField()
-    included_utilities = models.CharField(choices=UTILITIES, max_length=5, blank=True)
-    included_amenities = models.CharField(choices=AMENITIES, max_length=3, blank=True)
-    pool = models.BooleanField()
+
+class User(models.Model):
+  first_name = models.CharField(max_length=30, blank=False)
+  last_name = models.CharField(max_length=30, blank=False)
+  email = models.CharField(max_length=30, blank=False, null=True)
+  reviews = models.ManyToManyField(Review)
