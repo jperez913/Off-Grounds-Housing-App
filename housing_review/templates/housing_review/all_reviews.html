@@ -1,0 +1,19 @@
+<h1>Reviews</h1>
+<ul>
+{% for review in object_list %}
+    <li>{{ review.pub_date }} - {{ review.text }}</li>
+    <li>{{ review.address }}</li>
+    <li>{{ review.stars }}</li>
+    <li>{{ review.reviewer }}</li>
+    <li>{{ review.neighborhood }}</li>
+    <li>{{ review.price }}</li>
+    <li>{{ review.bedrooms }}</li>
+    <li>{{ review.bathrooms }}</li>
+    <li>{{ review.distance_to_newcomb }}</li>
+    <li>{{ review.utilities_cost }}</li>
+    <li>{{ review.utilities }}</li>
+    <li>{{ review.amenities }}</li>
+{% empty %}
+    <li>No Reviews yet.</li>
+{% endfor %}
+</ul>

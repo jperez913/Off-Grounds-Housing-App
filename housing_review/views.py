@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.utils import timezone
+from django.views.generic.list import ListView
 
 from .models import Review, NEIGHBORHOODS, UTILITIES, AMENITIES
 
@@ -52,3 +53,9 @@ class ReviewView(generic.View):
     r.save()
 
     return HttpResponseRedirect(reverse('index'))
+
+class allReviews(ListView):
+  model = Review
+  template_name = 'housing_review/all_reviews.html'
+  def get_queryset(self):
+    return Review.objects.all()
