@@ -44,7 +44,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'social_django' #Google-Login
+    #'social-auth-app-django',
+    #'social.apps.django_app.default',
+    #'social_django' #Google-Login
 ]
 
 MIDDLEWARE = [
