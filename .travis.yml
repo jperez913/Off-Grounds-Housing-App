@@ -3,7 +3,6 @@ python:
 - 3.6.1
 install:
 - pip install -r requirements.txt
-- travis encrypt $(heroku auth:token) --add deploy.api_key --pro
 #- python manage.py test
 deploy: 
   provider: heroku
