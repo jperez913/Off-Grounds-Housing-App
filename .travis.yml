@@ -11,4 +11,4 @@ deploy:
   app: the-sheriff
   on:
     repo: UVA-CS3240-S19/project-102-the-sheriff
-script: python manage.py test housing_reviewv
+script: python manage.py test housing_review
