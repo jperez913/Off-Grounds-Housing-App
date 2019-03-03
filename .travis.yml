@@ -3,7 +3,7 @@ python:
 - 3.6.1
 install:
 - pip install -r requirements.txt
-
+- travis encrypt $(heroku auth:token) --add deploy.api_key --pro
 #- python manage.py test
 deploy: 
   provider: heroku
@@ -12,6 +12,4 @@ deploy:
   app: the-sheriff
   on:
     repo: UVA-CS3240-S19/project-102-the-sheriff
-script: 
-  travis encrypt $(heroku auth:token) --add deploy.api_key --pro
-  python manage.py test housing_reviewv
+script: python manage.py test housing_reviewv
