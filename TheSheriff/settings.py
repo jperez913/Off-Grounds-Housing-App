@@ -37,6 +37,7 @@ LOGIN_REDIRECT_URL = 'home'
 #SOCIAL_AUTH_GITHUB_KEY = #Paste Client ID
 #SOCIAL_AUTH_GITHUB_SECRET = #Paste Secret Key
 INSTALLED_APPS = [
+    'housing_review.apps.HousingReviewConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

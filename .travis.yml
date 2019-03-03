@@ -1,0 +1,13 @@
+language: python
+python:
+- 3.6.1
+install:
+- pip install -r requirements.txt
+- python manage.py test
+deploy:
+  provider: heroku
+  api_key:
+    secure: j1/6ZVc9OOgV11lKkFbvdIO07AcHXoF0WVuK2Ik6+z156uG50LCQSOb54Fvj/FwZY1EuZDBBU+s5p6Ndw6FfcYp8U9gI0xyX8glwarknPx4vz0x/e28XgztcrAk8Q1EELGDpdgUlibkJboixBjiGX8PjD6fXVXm8jQAv9ycmsWsQe+Y57KbTSvYxTcMo22tYtDnzIXom6zBCJQ6JX2q8V/FaGMkevRUxp5QgnlKHabkkU0DBNxtWJoZjkCy3ahzWDkzbvaS4SciVJ5rjdBLnl29YKY+b/wvzEw7SWNLEu6AYHlu2pZj+Xa8RNqqO/jfaC443qF07xcZ0WT97/z3nZ3GGoFw7gfanwJ+oo/tzl6BO2RdQYCMDRSpSw+01lWkH1xw4srFYvyheGxAMBKnb+HKzDwb0qWSIfowJjryPeEn9/WI3jSMrPSoYHabpxPfbRPWLX3Mme5efvwATYWgTb4zPhDtDo4IVUq+yMQb4970/RPAKKsqKXl37rwV1VjF/x0PQY45EoMNUEcGqNF+m2y532tI9wdkM5lOt2DngYFr3uurfraG0kK4wyiwY4cfBUvEfuCh5mt20+mVTJl805psD01MjmHqjO2XHgdXUzWmFGWMWCbSxUeViOSPdHJ+T/zJedyL4pwSD8UGiQX53ZfyI46ntDTtxZ69xtw88S9U=
+  app: the-sheriff
+  on:
+    repo: UVA-CS3240-S19/project-102-the-sheriff
