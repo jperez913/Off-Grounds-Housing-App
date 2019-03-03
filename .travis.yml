@@ -3,7 +3,7 @@ python:
 - 3.6.1
 install:
 - pip install -r requirements.txt
-- python manage.py test housing_review
+#- python manage.py test
 deploy:
   provider: heroku
   api_key:
@@ -11,3 +11,4 @@ deploy:
   app: the-sheriff
   on:
     repo: UVA-CS3240-S19/project-102-the-sheriff
+script: python manage.py test housing_review
