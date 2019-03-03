@@ -4,7 +4,6 @@ from django.contrib import admin
 from django.contrib.auth import views
 #from django.contrib.auth.views import login
 from . import views
-from .views import home
 
 #urlpatterns = [
 #    path('', views.index, name='index'),
@@ -17,5 +16,5 @@ from .views import home
 urlpatterns = [
     path('', views.index, name='index'),
     path('review/', views.ReviewView.as_view(), name='review'),
-    path('all-reviews/', views.allReviews.as_view(), name='all-review'),
+    path('all_reviews/', views.allReviews.as_view(), name='all-review'),
 ]
