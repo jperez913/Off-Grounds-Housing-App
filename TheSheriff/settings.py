@@ -39,7 +39,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'easy_maps',
 ]
+# if django.VERSION < (1, 7):
+#     INSTALLED_APPS += (
+#         'south',
+#     )
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -122,3 +127,5 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 django_heroku.settings(locals())
+
+EASY_MAPS_GOOGLE_MAPS_API_KEY = "AIzaSyBLDfHtyt6C7NqimxtXZ8imfqHinj_dVNY"
