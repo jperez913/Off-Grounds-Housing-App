@@ -19,18 +19,20 @@
 <h1>Reviews</h1>
 <ul>
 {% for review in object_list %}
-    <li>{{ review.pub_date }} - {{ review.text }}</li>
-    <li>{{ review.address }}</li>
-    <li>{{ review.stars }}</li>
-    <li>{{ review.reviewer }}</li>
-    <li>{{ review.neighborhood }}</li>
-    <li>{{ review.price }}</li>
-    <li>{{ review.bedrooms }}</li>
-    <li>{{ review.bathrooms }}</li>
-    <li>{{ review.distance_to_newcomb }}</li>
-    <li>{{ review.utilities_cost }}</li>
-    <li>{{ review.utilities }}</li>
-    <li>{{ review.amenities }}</li>
+    <ul class ="list-group">
+        <li class="list-group-item list-group-item-info">{{ review.pub_date }} - {{ review.text }}</li>
+        <li class="list-group-item list-group-item-info">{{ review.address }}</li>
+        <li class="list-group-item list-group-item-info">{{ review.stars }}</li>
+        <li class="list-group-item list-group-item-info">{{ review.reviewer }}</li>
+        <li class="list-group-item list-group-item-info">{{ review.neighborhood }}</li>
+        <li class="list-group-item list-group-item-info">{{ review.price }}</li>
+        <li class="list-group-item list-group-item-info">{{ review.bedrooms }}</li>
+        <li class="list-group-item list-group-item-info">{{ review.bathrooms }}</li>
+        <li class="list-group-item list-group-item-info">{{ review.distance_to_newcomb }}</li>
+        <li class="list-group-item list-group-item-info">{{ review.utilities_cost }}</li>
+        <li class="list-group-item list-group-item-info">{{ review.utilities }}</li>
+        <li class="list-group-item list-group-item-info">{{ review.amenities }}</li>
+    </ul>
 {% empty %}
     <li>No Reviews yet.</li>
 {% endfor %}
