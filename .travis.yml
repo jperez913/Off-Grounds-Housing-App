@@ -10,4 +10,5 @@ deploy:
   app: the-sheriff
   on:
     repo: UVA-CS3240-S19/project-102-the-sheriff
+  skip_cleanup: true
 script: python manage.py test housing_review
