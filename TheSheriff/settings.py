@@ -11,7 +11,9 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
-#import django_heroku
+#import django_heroku #IF SENDING TO TRAVIS, COMMENT THIS,
+                    #THE UNCOMMENT FOLLOWING IF STATEMENT.
+                    #REVERSE STEPS IF RUNNING LOCALLY
 if '/app' in os.environ['HOME']:
     import django_heroku
     django_heroku.settings(locals())
