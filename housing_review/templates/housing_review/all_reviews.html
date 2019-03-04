@@ -1,18 +1,57 @@
 <h1>Reviews</h1>
 <ul>
+    <h2>Select filters</h2>
+
+    <p align="right">
+            <form action="/action_page.php" method="get">
+                Address: <input type="text" name="filter" value=""><br><br>
+                Stars: <input type="text" name="filter" value=""><br><br>
+                Keyword: <input type="text" name="filter" value=""><br><br>
+                Maximum Price: 
+                <div style="position:relative; margin:auto; width:90%">
+                        <span style="position:absolute; min-width:100px;">
+                        <span id="myValue"></span>
+                        </span>
+                        <input type="range" id="myRange" max="1000" min="0" style="width:80%"> 
+                      </div>
+                    
+                      <script type="text/javascript" charset="utf-8">
+                    var myRange = document.querySelector('#myRange');
+                    var myValue = document.querySelector('#myValue');
+                    var myUnits = '$';
+                    var off = myRange.offsetWidth / (parseInt(myRange.max) - parseInt(myRange.min));
+                    var px =  ((myRange.valueAsNumber - parseInt(myRange.min)) * off) - (myValue.offsetParent.offsetWidth / 2);
+                    
+                      myValue.parentElement.style.left = px + 'px';
+                      myValue.parentElement.style.top = myRange.offsetHeight + 'px';
+                      myValue.innerHTML = myUnits + myRange.value;
+                    
+                      myRange.oninput =function(){
+                        let px = ((myRange.valueAsNumber - parseInt(myRange.min)) * off) - (myValue.offsetWidth / 2);
+                        myValue.innerHTML = myUnits + myRange.value;
+                        myValue.parentElement.style.left = px + 'px';
+                      };
+                      </script>
+                Parking available? <input type="checkbox" name="filter" value="parking"><br><br>
+                Number of bedrooms: <input type="text" name="filter" value="bedrooms"><br><br>
+                Number of bathrooms: <input type="text" name="filter" value="bathrooms"><br><br>
+                <input type="submit" value="Submit"><br>
+              </form>
+    </p>
 {% for review in object_list %}
-    <li>{{ review.pub_date }} - {{ review.text }}</li>
-    <li>{{ review.address }}</li>
-    <li>{{ review.stars }}</li>
-    <li>{{ review.reviewer }}</li>
-    <li>{{ review.neighborhood }}</li>
-    <li>{{ review.price }}</li>
-    <li>{{ review.bedrooms }}</li>
-    <li>{{ review.bathrooms }}</li>
-    <li>{{ review.distance_to_newcomb }}</li>
-    <li>{{ review.utilities_cost }}</li>
-    <li>{{ review.utilities }}</li>
-    <li>{{ review.amenities }}</li>
+    <h2>{{ review.pub_date }} - {{ review.text }}</h2>
+    <li><b>Address</b> - {{ review.address }}</li>
+    <li><b>Stars</b> - {{ review.stars }}</li>
+    <li><b>Reviewer</b> - {{ review.reviewer }}</li>
+    <li><b>Neighboorhood</b> - {{ review.neighborhood }}</li>
+    <li><b>Price</b> - {{ review.price }}</li>
+    <li><b>Number of bedrooms</b> - {{ review.bedrooms }}</li>
+    <li><b>Number of bathrooms</b> - {{ review.bathrooms }}</li>
+    <li><b>Approximate distance</b> to Newcomb - {{ review.distance_to_newcomb }}</li>
+    <li><b>Cost of utilities</b> - {{ review.utilities_cost }}</li>
+    <li><b>Included utilities</b> - {{ review.utilities }}</li>
+    <li><b>Included amenities</b> - {{ review.amenities }}</li>
+    <br>
 {% empty %}
     <li>No Reviews yet.</li>
 {% endfor %}
