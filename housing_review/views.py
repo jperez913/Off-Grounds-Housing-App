@@ -11,6 +11,9 @@ from .models import Review, NEIGHBORHOODS, UTILITIES, AMENITIES
 def index(request):
   return HttpResponse("Hello, world. You're ready to review housing options now.")
 
+def map(request):
+  return render(request, "housing_review/map.html", {'lat':38.0314867, 'lng':-78.5090342}) #38.0314867,-78.5090342
+
 class ReviewView(generic.View):
   def get(self, request, *args, **kwargs):
     return render(request, "housing_review/review_form.html", {'neighborhoods':NEIGHBORHOODS, 'utilities':UTILITIES, 'amenities':AMENITIES})
