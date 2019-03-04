@@ -72,6 +72,15 @@ function initMap() { //38.0358961,-78.5066878
   display: table;
   clear: both;
 }
+
+.reviewForm {
+  background-color: rgb(65, 140, 216);
+  border-radius: 5px;
+  padding-top: 5px;
+  padding-left: 5px;
+  padding-bottom: 5px;
+}
+
 </style>
 
 <h1>Reviews</h1>
@@ -79,7 +88,7 @@ function initMap() { //38.0358961,-78.5066878
     <div class="column">
     <h2>Select filters</h2>
     <P ALIGN=RIGHT>
-            <form action="/action_page.php" method="get">
+            <form class="reviewForm" action="/action_page.php" method="get">
                 Address: <input type="text" name="filter" value=""><br><br>
                 Maximum Stars:
                 <input type="radio" name="gender" value="1"> 1
