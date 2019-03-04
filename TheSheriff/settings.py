@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'easy_maps',
+    # 'easy_maps',
+    # 'mapwidgets'
 ]
 # if django.VERSION < (1, 7):
 #     INSTALLED_APPS += (
@@ -128,4 +129,4 @@ STATIC_URL = '/static/'
 
 django_heroku.settings(locals())
 
-EASY_MAPS_GOOGLE_MAPS_API_KEY = "AIzaSyBLDfHtyt6C7NqimxtXZ8imfqHinj_dVNY"
+# EASY_MAPS_GOOGLE_MAPS_API_KEY = "AIzaSyBLDfHtyt6C7NqimxtXZ8imfqHinj_dVNY"

@@ -1,2 +1,45 @@
-{% load easy_maps_tags %}
-{% easy_map "" 200 200 5 %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+       /* Set the size of the div element that contains the map */
+      #map {
+        height: 700px;  /* The height is 400 pixels */
+        width: 100%;  /* The width is the width of the web page */
+       }
+    </style>
+  </head>
+  <body>
+    <h3>Review Locations</h3>
+    <!--The div element for the map -->
+    <div id="map"></div>
+    <script>
+// Initialize and add the map
+function initMap() { //38.0358961,-78.5066878
+  // The location of newcomb 38.0359236,-78.5088001
+  var newc = {lat: 38.0359236, lng: -78.5088001};
+  // The map, centered at newc
+  var map = new google.maps.Map(
+      document.getElementById('map'), {zoom: 15, center: newc});
+  // The marker, positioned at newc
+  var marker = new google.maps.Marker({position: newc, map: map});
+
+  //make grandmarc 38.037213,-78.5015677
+  var grandmarc = {lat: 38.037213, lng: -78.5015677};
+  var marker = new google.maps.Marker({position: grandmarc, map:map});
+    
+  //add variable location
+  var varLoc = {lat:{{lat}}, lng:{{lng}}};
+  var marker = new google.maps.Marker({position: varLoc, map: map})
+}
+    </script>
+    <!--Load the API from the specified URL
+    * The async attribute allows the browser to render the page while the API loads
+    * The key parameter will contain your own API key (which is not needed for this tutorial)
+    * The callback parameter executes the initMap() function
+    -->
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBLDfHtyt6C7NqimxtXZ8imfqHinj_dVNY&callback=initMap">
+    </script>
+  </body>
+</html>
