@@ -1,6 +1,28 @@
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* {
+  box-sizing: border-box;
+}
+
+.column {
+  float: left;
+  width: 50%;
+  padding: 10px;
+  height: 300px; /* Should be removed. Only for demonstration */
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+</style>
+
 <h1>Reviews</h1>
 <ul>
-    <div>
+    <div class="column">
     <h2>Select filters</h2>
     <P ALIGN=RIGHT>
             <form action="/action_page.php" method="get">
@@ -44,6 +66,7 @@
               </form>
             </P>
   </div>
+  <div class="column">
 {% for review in object_list %}
     <h2>{{ review.pub_date }} - {{ review.text }}</h2>
     <li><b>Address</b> - {{ review.address }}</li>
@@ -62,3 +85,4 @@
     <li>No Reviews yet.</li>
 {% endfor %}
 </ul>
+</div>
