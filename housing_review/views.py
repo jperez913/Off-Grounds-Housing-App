@@ -97,7 +97,7 @@ class ReviewView(generic.View):
     r = Review(text=text, pub_date=pub_date, neighborhood=neighborhood, address=address, stars=stars, price=price, utilities=utilities, amenities=amenities, utilities_cost=utilities_cost, bathrooms=bathrooms, bedrooms=bedrooms, distance_to_newcomb=distance_to_newcomb)
     r.save()
 
-    return HttpResponseRedirect(reverse('index'))
+    return HttpResponseRedirect(reverse('all-review'))
 
 class allReviews(ListView):
   model = Review
