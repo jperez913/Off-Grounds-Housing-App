@@ -16,9 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 from django.conf.urls import url, include
-from django.contrib.auth import views
+
 
 urlpatterns = [
-    path('', include('housing_review.urls')),
-    path('admin/', admin.site.urls),
+    url('admin/', admin.site.urls),
+    url('',include('housing_review.urls'), name='home'),
+    url(r'^account/', include('social_django.urls'), name='social'),
+    url(r'^account/', include('django.contrib.auth.urls'), name='auth'),
 ]
