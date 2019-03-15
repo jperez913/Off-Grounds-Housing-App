@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'social_django',
+    'social.apps.django_app.default',
 ]
 
 MIDDLEWARE = [
@@ -161,6 +162,7 @@ SOCIAL_AUTH_PIPELINE = (
     'social.pipeline.social_auth.load_extra_data',
     'social.pipeline.user.user_details',
     'social.pipeline.debug.debug',
+    
 )
 
 
