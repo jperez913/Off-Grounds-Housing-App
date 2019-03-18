@@ -38,19 +38,44 @@
 }
 
 .reviewForm {
-  background-color: rgb(65, 140, 216);
+  background-color: rgb(159, 230, 230);
   border-radius: 5px;
   padding-top: 5px;
   padding-left: 5px;
   padding-bottom: 5px;
 }
 
-</style>
+.h1Wrapper {
+  background-color: rgb(159, 230, 230);
+  border-radius: 5px;
+  padding-top: 5px;
+  padding-left: 5px;
+  padding-bottom: 5px;
+  margin-top: 5px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
 
-<h1>Reviews</h1>
+.h2Wrapper {
+  background-color: rgb(86, 194, 194);
+  border-radius: 5px;
+  padding-top: 5px;
+  padding-left: 5px;
+  padding-bottom: 5px;
+  margin-top: 5px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+</style>
+<div class="h1Wrapper">
+  <h1>Reviews</h1>
+</div>
 <ul>
     <div class="column">
-    <h2>Select filters</h2>
+    <div class="h2Wrapper">
+      <h2>Select filters</h2>
+    </div>
     <P ALIGN=RIGHT>
             <form class="reviewForm" action="/action_page.php" method="get">
                 Address: <input type="text" name="filter" value=""><br><br>
@@ -95,7 +120,10 @@
   </div>
   <div class="column">
 {% for review in object_list %}
-    <h2>{{ review.pub_date }} - {{ review.text }}</h2>
+    <div class="h2Wrapper"
+      style="margin:10px;">
+      <h2>{{ review.pub_date }} - {{ review.text }}</h2>
+    </div>
     <ul class ="list-group">
     <li class="list-group-item list-group-item-info"><b>Address</b> - {{ review.address }}</li>
     <li class="list-group-item list-group-item-info"><b>Stars</b> - {{ review.stars }}</li>
