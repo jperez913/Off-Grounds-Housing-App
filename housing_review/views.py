@@ -1,3 +1,6 @@
+import googlemaps #for geocoding
+import json
+
 from django.shortcuts import render
 from django.views import generic
 from django.http import HttpResponse
@@ -22,6 +25,14 @@ class ReviewView(generic.View):
     text = request.POST['text']
     pub_date = timezone.now()
     address = request.POST['address']
+
+    #gmaps api gecoding
+    gmaps = googlemaps.Client(key='AIzaSyBLDfHtyt6C7NqimxtXZ8imfqHinj_dVNY')
+    geocode_result = gmaps.geocode(address)
+    location = json.dumps( geocode_result[0]['geometry']['location'] )
+    print("wtf")
+    print(location)
+
     stars = int(request.POST['stars'])
     price = float(request.POST['price'])
     utilities_cost = float(request.POST['utilities_cost'])
@@ -52,7 +63,8 @@ class ReviewView(generic.View):
     amenities = ",".join(amen_arr)
 
     #note no reviewer in this. Need to add this in later
-    r = Review(text=text, pub_date=pub_date, neighborhood=neighborhood, address=address, stars=stars, price=price, utilities=utilities, amenities=amenities, utilities_cost=utilities_cost, bathrooms=bathrooms, bedrooms=bedrooms, distance_to_newcomb=distance_to_newcomb)
+    r = Review(text=text, pub_date=pub_date, neighborhood=neighborhood, address=address, stars=stars, price=price, utilities=utilities, amenities=amenities,
+     utilities_cost=utilities_cost, bathrooms=bathrooms, bedrooms=bedrooms, distance_to_newcomb=distance_to_newcomb, location=location)
     r.save()
 
     return HttpResponseRedirect(reverse('index'))
