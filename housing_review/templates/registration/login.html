@@ -4,10 +4,21 @@
 <head>
   <style>
     .btn {
+      display:block;
       position: absolute;
       left: 50%;
       top: 50%;
       transform: translate(-50%, -50%);
+      padding: 0;
+      width: auto;
+      height: auto;
+      border-radius: 100%;
+    }
+    .center {
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: auto;
+      margin: auto;
     }
   </style>
 </head>
@@ -32,12 +43,13 @@
   <div class="btn white darken-4 col s10 m4" >
     <a href="{% url 'social:begin' 'google-oauth2' %}?next=/">
 
-          <img width="20px" alt="Google &quot;G&quot; Logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png"/>
+      <img width="100px" alt="Google &quot;G&quot; Logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png"/>
 
-        Login with Google
-    </a>
+    
+</a>
 
   </div>
+  
 </div>
 </body>
 
