@@ -40,6 +40,7 @@ class Review(models.Model):
   utilities_cost = models.FloatField(null=True)
   utilities = models.CharField(max_length=10000, null=True)
   amenities = models.CharField(max_length=10000, null=True)
+  image_url = models.CharField(max_length=100, null=True)
 
 
 

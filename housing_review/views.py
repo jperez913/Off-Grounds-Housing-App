@@ -5,6 +5,9 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.utils import timezone
 from django.views.generic.list import ListView
+import datetime
+import random
+import string
 
 from .models import Review, NEIGHBORHOODS, UTILITIES, AMENITIES
 
@@ -18,6 +21,8 @@ from django.http import HttpResponseRedirect
 from django.db import transaction
 from .models import Profile
 from .forms import UserForm,ProfileForm
+
+from django.core.files.storage import FileSystemStorage
 
 @login_required
 def Home(request):
@@ -69,6 +74,14 @@ class ReviewView(generic.View):
     utilities_cost = float(request.POST['utilities_cost'])
     bathrooms = int(request.POST['bathrooms'])
     bedrooms = int(request.POST['bedrooms'])
+    url = None
+    if(request.FILES['imagefile']):
+      image = request.FILES['imagefile']
+      fs = FileSystemStorage()
+      rand = ''.join([random.choice(string.ascii_letters + string.digits) for n in range(32)])
+      image_name = str(unix_time_millis(pub_date)) + rand
+      filename = fs.save(image_name, image)
+      url = fs.url(filename)
 
     hood_arr = []
     util_arr = []
@@ -94,7 +107,7 @@ class ReviewView(generic.View):
     amenities = ",".join(amen_arr)
 
     #note no reviewer in this. Need to add this in later
-    r = Review(text=text, pub_date=pub_date, neighborhood=neighborhood, address=address, stars=stars, price=price, utilities=utilities, amenities=amenities, utilities_cost=utilities_cost, bathrooms=bathrooms, bedrooms=bedrooms, distance_to_newcomb=distance_to_newcomb)
+    r = Review(text=text, pub_date=pub_date, neighborhood=neighborhood, address=address, stars=stars, price=price, utilities=utilities, amenities=amenities, utilities_cost=utilities_cost, bathrooms=bathrooms, bedrooms=bedrooms, distance_to_newcomb=distance_to_newcomb, image_url=url)
     r.save()
 
     return HttpResponseRedirect(reverse('all-review'))
@@ -104,3 +117,10 @@ class allReviews(ListView):
   template_name = 'housing_review/all_reviews.html'
   def get_queryset(self):
     return Review.objects.all()
+
+
+
+
+epoch = datetime.datetime.utcfromtimestamp(0)
+def unix_time_millis(dt):
+  return (dt - epoch).total_seconds() * 1000.0
