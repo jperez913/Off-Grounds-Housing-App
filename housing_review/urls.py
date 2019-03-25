@@ -16,7 +16,7 @@ from . import views
 urlpatterns = [
     #path('', views.index, name='index'),
     path('review/', views.ReviewView.as_view(), name='review'),
-    path('', views.allReviews.as_view(), name='all-review'),
+    path('all_reviews', views.allReviews.as_view(), name='all-review'),
     path('map/', views.map, name='map'),
     url(r'^login/$', views.Home),
     url(r'^profile/$', views.update_profile),
