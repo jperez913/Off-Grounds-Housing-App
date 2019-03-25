@@ -13,8 +13,13 @@
       integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
       crossorigin="anonymous"
     ></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
   </head>
-  <h3>Review Locations</h3>
+  <div class="h1Wrapper">
+    <h1>Review Locations</h1>
+  </div>
     <!--The div element for the map -->
     <div id="map"></div>
     <script>
@@ -53,7 +58,8 @@ function initMap() { //38.0358961,-78.5066878
          /* Set the size of the div element that contains the map */
          #map {
         height: 700px;  /* The height is 400 pixels */
-        width: 100%;  /* The width is the width of the web page */
+        width: 99%;  /* The width is the width of the web page */
+        margin-left: 5px;
        }
 * {
   box-sizing: border-box;
@@ -90,6 +96,7 @@ function initMap() { //38.0358961,-78.5066878
   margin-top: 5px;
   margin-left: 5px;
   margin-right: 5px;
+  margin-bottom: 5px;
 }
 
 .h2Wrapper {
@@ -101,6 +108,12 @@ function initMap() { //38.0358961,-78.5066878
   margin-top: 5px;
   margin-left: 5px;
   margin-right: 5px;
+}
+
+.buttonArea {
+  margin-right: 5px;
+  margin-bottom: 5px;
+  border-radius: 5px;
 }
 
 </style>
@@ -158,20 +171,34 @@ function initMap() { //38.0358961,-78.5066878
 {% for review in object_list %}
     <div class="h2Wrapper"
       style="margin:10px;">
-      <h2>{{ review.pub_date }} - {{ review.text }}</h2>
+      <span>
+        <h2>{{ review.pub_date }} - {{ review.text }}</h2>
+        <div class="pos-f-t">
+          <div class="collapse" id="a{{ review.stars }}">
+            <div class="bg-dark p-4 buttonArea">
+              <ul class ="list-group">
+                <li class="list-group-item list-group-item-info"><b>Address</b> - {{ review.address }}</li>
+                <li class="list-group-item list-group-item-info"><b>Stars</b> - {{ review.stars }}</li>
+                <li class="list-group-item list-group-item-info"><b>Reviewer</b> - {{ review.reviewer }}</li>
+                <li class="list-group-item list-group-item-info"><b>Neighboorhood</b> - {{ review.neighborhood }}</li>
+                <li class="list-group-item list-group-item-info"><b>Price</b> - {{ review.price }}</li>
+                <li class="list-group-item list-group-item-info"><b>Number of bedrooms</b> - {{ review.bedrooms }}</li>
+                <li class="list-group-item list-group-item-info"><b>Number of bathrooms</b> - {{ review.bathrooms }}</li>
+                <li class="list-group-item list-group-item-info"><b>Approximate distance</b> to Newcomb - {{ review.distance_to_newcomb }}</li>
+                <li class="list-group-item list-group-item-info"><b>Cost of utilities</b> - {{ review.utilities_cost }}</li>
+                <li class="list-group-item list-group-item-info"><b>Included utilities</b> - {{ review.utilities }}</li>
+                <li class="list-group-item list-group-item-info"><b>Included amenities</b> - {{ review.amenities }}</li>
+            </div>
+          </div>
+          <nav class="navbar navbar-dark bg-dark buttonArea">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#a{{ review.stars }}" aria-controls="{{ review.stars }}" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+          </nav>
+        </div>
+      </span>
     </div>
-    <ul class ="list-group">
-    <li class="list-group-item list-group-item-info"><b>Address</b> - {{ review.address }}</li>
-    <li class="list-group-item list-group-item-info"><b>Stars</b> - {{ review.stars }}</li>
-    <li class="list-group-item list-group-item-info"><b>Reviewer</b> - {{ review.reviewer }}</li>
-    <li class="list-group-item list-group-item-info"><b>Neighboorhood</b> - {{ review.neighborhood }}</li>
-    <li class="list-group-item list-group-item-info"><b>Price</b> - {{ review.price }}</li>
-    <li class="list-group-item list-group-item-info"><b>Number of bedrooms</b> - {{ review.bedrooms }}</li>
-    <li class="list-group-item list-group-item-info"><b>Number of bathrooms</b> - {{ review.bathrooms }}</li>
-    <li class="list-group-item list-group-item-info"><b>Approximate distance</b> to Newcomb - {{ review.distance_to_newcomb }}</li>
-    <li class="list-group-item list-group-item-info"><b>Cost of utilities</b> - {{ review.utilities_cost }}</li>
-    <li class="list-group-item list-group-item-info"><b>Included utilities</b> - {{ review.utilities }}</li>
-    <li class="list-group-item list-group-item-info"><b>Included amenities</b> - {{ review.amenities }}</li>
+
     <br>
 {% empty %}
     <li>No Reviews yet.</li>
