@@ -5,20 +5,13 @@ from django.contrib.auth import views
 #from django.contrib.auth.views import login
 from . import views
 
-#urlpatterns = [
-#    path('', views.index, name='index'),
-#    url(r'^admin/', admin.site.urls),
-#    url(r'^login/$', LoginView.as_view(), name='login'),
-#    url(r'^logout/$', LogoutView.as_view(), name='logout'),
-#    url(r'^auth/', include('social_django.urls', namespace='social')), 
-#    url(r'^$', home, name='home'),
-#]
 urlpatterns = [
     #path('', views.index, name='index'),
     path('review/', views.ReviewView.as_view(), name='review'),
+    path('manage/', views.Manage.as_view(), name='manage'),
     path('', views.allReviews.as_view(), name='all-review'),
-    path('map/', views.map, name='map'),
-    url(r'^login/$', views.Home),
-    url(r'^profile/$', views.update_profile),
-    url(r'^account/logout/$', views.Logout),
+    #path('map/', views.map, name='map'), Now in all-review
+    url(r'^login/$', views.Home, name='login'),
+    url(r'^profile/$', views.update_profile, name='profile'),
+    url(r'^account/logout/$', views.Logout, name='logout'),
 ]

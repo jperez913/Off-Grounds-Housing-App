@@ -12,26 +12,20 @@
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet"
     />
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+    <title>YELP FOR UVA OFF GROUND HOUSING</title>
   </head>
 
-  <title>Django</title>
+  <title>YELP FOR UVA OFF GROUND HOUSING</title>
 
-  {% if user.is_authenticated %}
-
-  <div class="navbar-fixed">
-    <nav class="blue">
-      <div class="nav-wrapper container">
-        <a href="/" class="brand-logo center">Google App</a>
-        <ul id="nav-mobile" class="right hide-on-med-and-down">
-          <li><a href="/account/logout">Log out</a></li>
-        </ul>
-      </div>
-    </nav>
-  </div>
-
-  {% endif %}
-
+  {% if user.is_authenticated %} {% include 'home/navbar_signed_in.html' %}
   <div class="container">
     {% block content %} {% endblock %}
   </div>
+  {% else %} {% include 'home/navbar_signed_out.html' %} {% include
+  'registration/login.html' %}{% endif %}
 </html>

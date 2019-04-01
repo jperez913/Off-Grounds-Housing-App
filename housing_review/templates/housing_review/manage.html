@@ -1,0 +1,392 @@
+{% extends 'home/base.html' %} {% block content %}
+<link
+  rel="stylesheet"
+  href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+  integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+  crossorigin="anonymous"
+/>
+<script
+  src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+  integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+  crossorigin="anonymous"
+></script>
+<script
+  src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+  integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+  crossorigin="anonymous"
+></script>
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+  integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+  crossorigin="anonymous"
+></script>
+<h1>Manage Reviews</h1>
+<div>
+  <script type="text/javascript">
+    function convertToObject(vid) {
+      obj = {};
+      for (var p in vid) {
+        obj[p] = vid[p];
+      }
+      obj2 = {};
+      obj.childNodes.forEach(function(node) {
+        if (node.localName) {
+          obj2[node.localName] = node.innerText;
+        }
+      });
+      return obj2;
+    }
+    function init() {
+      var review_datas = document.getElementsByClassName("hacky_data");
+      for (i = 0; i < review_datas.length; i++) {
+        review = convertToObject(review_datas[i]);
+        document.getElementById(
+          review.pk + "stars" + review.stars
+        ).checked = true;
+        hoods = review.neighborhoods.split(",");
+        hoods = hoods.filter(function(el) {
+          return el != "";
+        });
+        hoods.forEach(element => {
+          document.getElementById(review.pk + "h" + element).checked = true;
+        });
+        if (review.bedrooms != undefined) {
+          document.getElementById(review.pk + "bedrooms").value =
+            review.bedrooms;
+        }
+        if (review.bathrooms != undefined) {
+          document.getElementById(review.pk + "bathrooms").value =
+            review.bathrooms;
+        }
+        amen = review.amenities.split(",");
+        amen = amen.filter(function(el) {
+          return el != "";
+        });
+        amen.forEach(element => {
+          document.getElementById(review.pk + "a" + element).checked = true;
+        });
+        util = review.utilities.split(",");
+        util = util.filter(function(el) {
+          return el != "";
+        });
+        util.forEach(element => {
+          document.getElementById(review.pk + "u" + element).checked = true;
+        });
+        if (review.utilities_cost != undefined) {
+          document.getElementById(review.pk + "util_cost").value =
+            review.utilities_cost;
+        }
+      }
+    }
+    window.onload = init;
+  </script>
+  <div class="h2Wrapper" style="margin:10px;">
+    <div class="row">
+      {% for review in Reviews %}
+      <div class="col-sm-10 pos-f-t">
+        <nav class="navbar navbar-dark bg-dark buttonArea">
+          <button
+            class="btn btn-primary"
+            type="button"
+            id="toggle_button{{ review.pk }}"
+            onclick="toggle('{{ review.pk }}');"
+          >
+            {{ review.pub_date }}
+          </button>
+          <script>
+            var toggle = function(id) {
+              var mydiv = document.getElementById("review" + id);
+              if (mydiv.style.display === "block" || mydiv.style.display === "")
+                mydiv.style.display = "none";
+              else mydiv.style.display = "block";
+            };
+          </script>
+        </nav>
+        <div style="display:none; margin-top:25" id="review{{ review.pk }}">
+          <div hidden readonly class="hacky_data">
+            <stars>{{ review.stars }}</stars>
+            <neighborhoods>{{ review.neighborhood }}</neighborhoods>
+            <bedrooms>{{ review.bedrooms }}</bedrooms>
+            <bathrooms>{{ review.bathrooms }}</bathrooms>
+            <amenities>{{ review.amenities }}</amenities>
+            <utilities>{{ review.utilities }}</utilities>
+            <utilities_cost>{{ review.utilities_cost }}</utilities_cost>
+            <pub_date>{{review.pub_date</pub_date>
+            <pk>{{ review.pk }}</pk>
+          </div>
+
+          <form>
+            {% csrf_token %}
+            <div class="form-group row">
+              <div class="col-sm-10">
+                <button
+                  style="display:inline-block"
+                  type="submit"
+                  name="submit_type"
+                  value="update"
+                  class="btn btn-primary"
+                  formmethod="post"
+                >
+                  Update
+                </button>
+                <button
+                  style="display:inline-block;background-color:red"
+                  type="submit"
+                  name="submit_type"
+                  value="delete"
+                  class="btn btn-primary"
+                  formmethod="post"
+                >
+                  Delete
+                </button>
+                <input name="pk" value="{{ review.pk }}" hidden readonly />
+              </div>
+            </div>
+            <!--STARS-->
+            <fieldset class="form-group">
+              <div class="row">
+                <legend class="col-form-label col-sm-2 pt-0">Stars</legend>
+                <div class="col-sm-10">
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="stars"
+                      id="{{ review.pk }}stars1"
+                      value="1"
+                    />
+                    <label class="form-check-label" for="{{ review.pk }}stars1">
+                      1
+                    </label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="stars"
+                      id="{{ review.pk }}stars2"
+                      value="2"
+                    />
+                    <label class="form-check-label" for="{{ review.pk }}stars2">
+                      2
+                    </label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="stars"
+                      id="{{ review.pk }}stars3"
+                      value="3"
+                    />
+                    <label class="form-check-label" for="{{ review.pk }}stars3">
+                      3
+                    </label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="stars"
+                      id="{{ review.pk }}stars4"
+                      value="4"
+                    />
+                    <label class="form-check-label" for="{{ review.pk }}stars4">
+                      4
+                    </label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="stars"
+                      id="{{ review.pk }}stars5"
+                      value="5"
+                    />
+                    <label class="form-check-label" for="{{ review.pk }}stars5">
+                      5
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+            <!--ADDRESS-->
+            <div class="form-group row">
+              <label for="address" class="col-sm-2 col-form-label"
+                >Address</label
+              >
+              <div class="col-sm-10">
+                <input
+                  type="text"
+                  name="address"
+                  class="form-control"
+                  id="{{ review.pk }}addressID"
+                  placeholder="Address"
+                  value="{{ review.address }}"
+                />
+              </div>
+            </div>
+            <!--TEXT-->
+            <div class="form-group">
+              <label for="text">Review</label>
+              <textarea
+                class="form-control"
+                id="{{ review.pk }}textID"
+                name="text"
+                value="{{ review.text }}"
+                rows="3"
+              ></textarea>
+            </div>
+            <!--NEIGHBORHOOD-->
+            <fieldset class="form-group">
+              <div class="row">
+                <legend class="col-form-label col-sm-2 pt-0">
+                  Neighborhoods
+                </legend>
+                <div class="col-sm-10">
+                  {% for hood in neighborhoods %}
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      id="{{ review.pk }}h{{ hood }}"
+                      name="{{ hood }}"
+                      value="{{ hood }}"
+                    />
+                    <label
+                      class="form-check-label"
+                      for="{{ review.pk }}h{{ hood }}"
+                    >
+                      {{ hood }}
+                    </label>
+                  </div>
+                  {% endfor %}
+                </div>
+              </div>
+            </fieldset>
+            <!--PRICE-->
+            <div class="form-group">
+              <label for="exampleFormControlInput1">Price per Tenant</label>
+              <input
+                type="number"
+                min="0.01"
+                step="0.01"
+                max="2500"
+                class="form-control"
+                name="price"
+                value="{{ review.price }}"
+                id="{{ review.pk }}price"
+              />
+            </div>
+            <!--BEDROOMS-->
+            <div class="form-group">
+              <label for="exampleFormControlSelect1">Bedrooms</label>
+              <select
+                class="form-control"
+                name="bedrooms"
+                id="{{ review.pk }}bedrooms"
+              >
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+                <option>6</option>
+                <option>7</option>
+                <option>8</option>
+                <option>9</option>
+                <option>10</option>
+              </select>
+            </div>
+            <!--Bathrooms-->
+            <div class="form-group">
+              <label for="exampleFormControlSelect1">Bathrooms</label>
+              <select
+                class="form-control"
+                name="bathrooms"
+                id="{{ review.pk }}bathrooms"
+              >
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+                <option>6</option>
+              </select>
+            </div>
+            <!--Amenities-->
+            <fieldset class="form-group">
+              <div class="row">
+                <legend class="col-form-label col-sm-2 pt-0">
+                  Amenitites
+                </legend>
+                <div class="col-sm-10">
+                  {% for amen in amenities %}
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      id="{{ review.pk }}a{{ amen }}"
+                      name="{{ amen }}"
+                      value="{{ amen }}"
+                    />
+                    <label
+                      class="form-check-label"
+                      for="{{ review.pk }}a{{ amen }}"
+                    >
+                      {{ amen }}
+                    </label>
+                  </div>
+                  {% endfor %}
+                </div>
+              </div>
+            </fieldset>
+            <!--Utilities-->
+            <fieldset class="form-group">
+              <div class="row">
+                <legend class="col-form-label col-sm-2 pt-0">
+                  Utilities
+                </legend>
+                <div class="col-sm-10">
+                  {%for util in utilities%}
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      id="{{ review.pk }}u{{ util }}"
+                      name="{{ util }}"
+                      value="{{ util }}"
+                    />
+                    <label
+                      class="form-check-label"
+                      for="{{ review.pk }}u{{ util }}"
+                    >
+                      {{ util }}
+                    </label>
+                  </div>
+                  {%endfor%}
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="exampleFormControlInput1"
+                  >Cost of Utilities per Tenant</label
+                >
+                <input
+                  type="number"
+                  name="utilities_cost"
+                  min="0.01"
+                  step="0.01"
+                  max="2500"
+                  class="form-control"
+                  id="{{ review.pk }}util_cost"
+                  value="1.00"
+                />
+              </div>
+            </fieldset>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %} {% endblock %}
+</div>
