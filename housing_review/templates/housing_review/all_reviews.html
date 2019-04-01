@@ -132,35 +132,11 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBLDfHtyt6C7NqimxtXZ8imfqH
                 <input type="radio" name="gender" value="3"> 3
                 <input type="radio" name="gender" value="4"> 4
                 <input type="radio" name="gender" value="5"> 5<br><br>
-                Keyword: <input type="text" name="filter" value=""><br><br>
-                Maximum Price:
-                <div style="position:relative; margin:auto; width:90%">
-                        <span style="position:absolute; min-width:100px;">
-                        <span id="myValue"></span>
-                        </span>
-                        <input type="range" id="myRange" max="1000" min="0" style="width:80%">
-                      </div>
-
-                      <script type="text/javascript" charset="utf-8">
-                    var myRange = document.querySelector('#myRange');
-                    var myValue = document.querySelector('#myValue');
-                    var myUnits = '$';
-                    var off = myRange.offsetWidth / (parseInt(myRange.max) - parseInt(myRange.min));
-                    var px =  ((myRange.valueAsNumber - parseInt(myRange.min)) * off) - (myValue.offsetParent.offsetWidth / 2);
-
-                      myValue.parentElement.style.left = px + 'px';
-                      myValue.parentElement.style.top = myRange.offsetHeight + 'px';
-                      myValue.innerHTML = myUnits + myRange.value;
-
-                      myRange.oninput =function(){
-                        let px = ((myRange.valueAsNumber - parseInt(myRange.min)) * off) - (myValue.offsetWidth / 2);
-                        myValue.innerHTML = myUnits + myRange.value;
-                        myValue.parentElement.style.left = px + 'px';
-                      };
-                      </script><br>
+                Minimum Price: <input type="text" name="min" value="0" size="4">
+                Maximum Price: <input type="text" name="min" value="1000" size="4"><br><br>
                 Parking available? <input type="checkbox" name="filter"><br><br>
-                Number of bedrooms: <input type="text" name="filter" ><br><br>
-                Number of bathrooms: <input type="text" name="filter"><br><br>
+                Number of bedrooms: <input type="text" name="filter" size="2"><br><br>
+                Number of bathrooms: <input type="text" name="filter" size="2"><br><br>
                 <input type="submit" value="Submit"><br>
               </form>
             </P>
