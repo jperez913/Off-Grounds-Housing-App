@@ -38,9 +38,21 @@ function initMap() { //38.0358961,-78.5066878
 {% for review in object_list %}
   console.log("yeep");
   // console.log( {{review}} );
-  console.log('{{review.location}}');
-  var marker = new google.maps.Marker({position: JSON.parse({{review.location}}) , map:map });
+  console.log(decodeHtml('{{review.location}}'));
+  if (!('{{review.location}}' === 'None'))
+  {
+    var pos = decodeHtml('{{review.location}}');
+    var posR = pos.replace(/'/g, "\"");
+    console.log("Pos: " + posR);
+    var posObj = JSON.parse(posR);
+    var marker = new google.maps.Marker({position: posObj, map:map });
+  }
 {% endfor %}
+}
+function decodeHtml(html) {
+    var txt = document.createElement("textarea");
+    txt.innerHTML = html;
+    return txt.value;
 }
     </script>
     <!--Load the API from the specified URL
