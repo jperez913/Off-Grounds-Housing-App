@@ -104,7 +104,8 @@
 </div>
 <div class="container">
 <div class="row">
-<div class="col">
+<div class="col"
+    style="padding: 0%">
   <div class="h2Wrapper" style="width: 100%;">
       <h2>Select filters</h2>
   </div>
@@ -156,6 +157,7 @@ function initMap() { //38.0358961,-78.5066878
 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBLDfHtyt6C7NqimxtXZ8imfqHinj_dVNY&callback=initMap">
 </script>
 </div>
+<div></div>
 <div class="col">
 {% for review in object_list %}
 <div class="collapseClass">
@@ -178,7 +180,7 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBLDfHtyt6C7NqimxtXZ8imfqH
         <div class="col-4">
             <nav class="navbar navbar-dark bg-dark buttonArea"
                 style="margin-right: 5px;">
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#a{{ review.stars }}" aria-controls="{{ review.stars }}" aria-expanded="false" aria-label="Toggle navigation"
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#a{{ review.pk }}" aria-controls="{{ review.stars }}" aria-expanded="false" aria-label="Toggle navigation"
                     style="transform: translate(40%,0%);">
                   <span class="navbar-toggler-icon"></span>
                 </button>
@@ -188,7 +190,7 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBLDfHtyt6C7NqimxtXZ8imfqH
         <div class="row justify-content-center">
             <div class="pos-f-t"
                 style="display: inline-block;">
-                <div class="collapse" id="a{{ review.stars }}">
+                <div class="collapse" id="a{{ review.pk }}">
                   <div class="bg-dark p-4"
                       style="margin-bottom: 10px; border-radius: 5px;">
                     <ul class ="list-group">
@@ -204,7 +206,7 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBLDfHtyt6C7NqimxtXZ8imfqH
               </div>
         </div>
 </div>
-</div> <!--END COL-->
+<!--END COL-->
 
     <br>
 {% empty %}
