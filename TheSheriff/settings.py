@@ -146,6 +146,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 try:
     django_heroku.settings(locals())
 except: ImportError
@@ -173,6 +176,8 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
 ]
 
 # Google+ SignIn (google-plus)
+SOCIAL_AUTH_GOOGLE_OAUTH2_AUTH_EXTRA_ARGUMENTS = {
+    'hd': 'virginia.edu'}
 SOCIAL_AUTH_GOOGLE_PLUS_IGNORE_DEFAULT_SCOPE = True
 SOCIAL_AUTH_GOOGLE_PLUS_SCOPE = [
 'https://www.googleapis.com/auth/plus.login',
