@@ -1,3 +1,4 @@
+{% load static %}
 <link
   rel="stylesheet"
   href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
@@ -6,7 +7,10 @@
 />
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   
-  <a class="navbar-brand" href="#"><font size = =8>Hoomstve Home</font></a>
+  <!--<a class="navbar-brand" href="#"><font size = =8>Hoomstve Home</font></a>-->
+  <a class = "navbar-brand" href="#">
+    <img width = "35" height = "35" src="{% static 'media/idea1.png'%}" >
+  </a>
   <div id="navbarNav">
     <ul class="navbar-nav">
       <li class="nav-item">
