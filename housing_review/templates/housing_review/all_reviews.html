@@ -110,19 +110,86 @@
       <h2>Select filters</h2>
   </div>
     <P ALIGN=RIGHT>
-            <form class="reviewForm" action="/action_page.php" method="get">
+            <form class="reviewForm" method="get">
                 Address: <input type="text" name="filter" value=""><br><br>
-                Maximum Stars:
-                <input type="radio" name="gender" value="1"> 1
-                <input type="radio" name="gender" value="2"> 2
-                <input type="radio" name="gender" value="3"> 3
-                <input type="radio" name="gender" value="4"> 4
-                <input type="radio" name="gender" value="5"> 5<br><br>
-                Minimum Price: <input type="text" name="min" value="0" size="4">
-                Maximum Price: <input type="text" name="min" value="1000" size="4"><br><br>
-                Parking available? <input type="checkbox" name="filter"><br><br>
-                Number of bedrooms: <input type="text" name="filter" size="2"><br><br>
-                Number of bathrooms: <input type="text" name="filter" size="2"><br><br>
+                Minimum Stars:
+                <fieldset class="form-group">
+                    <div class="row">
+                      <legend class="col-form-label col-sm-2 pt-0">Stars</legend>
+                      <div class="col-sm-10">
+                        <div class="form-check form-check-inline">
+                          <input
+                            class="form-check-input"
+                            type="radio"
+                            name="stars"
+                            id="stars1"
+                            value="1"
+                            checked
+                          />
+                          <label class="form-check-label" for="stars1">
+                            1
+                          </label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                          <input
+                            class="form-check-input"
+                            type="radio"
+                            name="stars"
+                            id="stars2"
+                            value="2"
+                          />
+                          <label class="form-check-label" for="stars2">
+                            2
+                          </label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                          <input
+                            class="form-check-input"
+                            type="radio"
+                            name="stars"
+                            id="stars3"
+                            value="3"
+                          />
+                          <label class="form-check-label" for="stars3">
+                            3
+                          </label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                          <input
+                            class="form-check-input"
+                            type="radio"
+                            name="stars"
+                            id="stars4"
+                            value="4"
+                          />
+                          <label class="form-check-label" for="stars4">
+                            4
+                          </label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                          <input
+                            class="form-check-input"
+                            type="radio"
+                            name="stars"
+                            id="stars5"
+                            value="5"
+                          />
+                          <label class="form-check-label" for="stars5">
+                            5
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </fieldset>
+                Minimum Price: <input name="min_price" type="number"min="0.00"step="0.01"max="2500"value="0" size="4">
+                Maximum Price: <input name="max_price"                 
+                min="0.00"
+                step="0.01"
+                max="2500"
+                value="2500" size="4"><br><br>
+                <!--Parking available? <input type="checkbox" name="parking"><br><br> -->
+                Number of bedrooms: <input type="number" value="1" step="1"min="1"max="10"name="bedrooms" size="2"><br><br>
+                Number of bathrooms: <input type="number" value="1"step="1"min="1"max="10"name="bathrooms" size="2"><br><br>
                 <input type="submit" value="Submit"><br>
               </form>
     </P>

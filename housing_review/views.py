@@ -193,9 +193,22 @@ class Manage(generic.View):
 
 
 @method_decorator(login_required, name='dispatch')
-class allReviews(ListView):
-    model = Review
-    template_name = 'housing_review/all_reviews.html'
-
-    def get_queryset(self):
-        return Review.objects.all()
+class allReviews(generic.View):
+    def get(self, request, *args, **kwargs):
+        stars = request.GET.get('stars', 1)
+        min_price = request.GET.get('min_price', 0)
+        max_price = request.GET.get('max_price', 2500)
+        bedrooms = request.GET.get('bedrooms', 1)
+        bathrooms = request.GET.get('bathrooms', 1)
+        objects = Review.objects.all().filter(stars__gte=stars)
+        objects = objects.filter(price__gte=min_price)
+        objects = objects.filter(price__lte=max_price)
+        objects = objects.filter(bedrooms=bedrooms)
+        objects = objects.filter(bathrooms=bathrooms)
+        return render(
+            request, "housing_review/all_reviews.html", {
+                'neighborhoods': NEIGHBORHOODS,
+                'utilities': UTILITIES,
+                'amenities': AMENITIES,
+                'object_list': objects
+            })
