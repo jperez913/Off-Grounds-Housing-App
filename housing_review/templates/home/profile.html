@@ -9,6 +9,13 @@
  {% csrf_token %}
  {{ user_form.as_p }}
  {{ profile_form.as_p }}
- <button type=”submit”>Save changes</button>
+ <button
+ class="btn btn-primary"
+ type="submit"
+ id="toggle_button{{ review.pk }}"
+ onclick="toggle('{{ review.pk }}');"
+>
+Save Changes
+</button>
 </form>
 {% endblock %}

@@ -189,7 +189,7 @@ class Manage(generic.View):
             review = Review.objects.get(pk=pk)
             review.delete()
 
-        return HttpResponseRedirect(reverse('all-review'))
+        return HttpResponseRedirect(reverse('manage'))
 
 
 @method_decorator(login_required, name='dispatch')
