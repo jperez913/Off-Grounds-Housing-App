@@ -87,7 +87,7 @@
   background-color: rgb(110, 216, 207);
   border-radius: 5px;
   text-align: center;
-  margin-left: 4px;
+  margin-left: 30px;
   margin-top: 5px;
 }
 
@@ -137,15 +137,31 @@ function initMap() { //38.0358961,-78.5066878
   var map = new google.maps.Map(
       document.getElementById('map'), {zoom: 15, center: newc});
   // The marker, positioned at newc
-  var marker = new google.maps.Marker({position: newc, map: map});
-
+  // var marker = new google.maps.Marker({position: newc, map: map});
   //make grandmarc 38.037213,-78.5015677
-  var grandmarc = {lat: 38.037213, lng: -78.5015677};
-  var marker = new google.maps.Marker({position: grandmarc, map:map});
-
+  // var grandmarc = {lat: 38.037213, lng: -78.5015677};
+  // var marker = new google.maps.Marker({position: grandmarc, map:map});
   //add variable location
   // var varLoc = {lat:{{lat}}, lng:{{lng}}};
   // var marker = new google.maps.Marker({position: varLoc, map: map})
+{% for review in object_list %}
+  console.log("yeep");
+  // console.log( {{review}} );
+  console.log(decodeHtml('{{review.location}}'));
+  if (!('{{review.location}}' === 'None'))
+  {
+    var pos = decodeHtml('{{review.location}}');
+    var posR = pos.replace(/'/g, "\"");
+    console.log("Pos: " + posR);
+    var posObj = JSON.parse(posR);
+    var marker = new google.maps.Marker({position: posObj, map:map });
+  }
+{% endfor %}
+}
+function decodeHtml(html) {
+    var txt = document.createElement("textarea");
+    txt.innerHTML = html;
+    return txt.value;
 }
 </script>
 <!--Load the API from the specified URL
@@ -162,7 +178,7 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBLDfHtyt6C7NqimxtXZ8imfqH
 {% for review in object_list %}
 <div class="collapseClass">
         <div class="row"
-            style="transform: translate(12%,0%);"> <!--  START FIRST ROW OF REVIEW -->
+            style="transform: translate(0%,0%);"> <!--  START FIRST ROW OF REVIEW -->
           <div class="col-3 rowElements">
               <b>Price: {{ review.price }}</b>
           </div>
@@ -173,15 +189,15 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBLDfHtyt6C7NqimxtXZ8imfqH
               <b>Stars: {{ review.stars }}</b>
           </div>
         </div> <!--  END FIRST ROW OF REVIEW -->
-        <div class="row" style="width: 90%; transform: translate(10%, 0%);"> <!--  START SECOND ROW OF REVIEW -->
+        <div class="row" style="width: 90%; transform: translate(5%, 0%);"> <!--  START SECOND ROW OF REVIEW -->
         <div class="col-8 rowElements2">
             <b>Address: {{ review.address }}</b>
         </div>
         <div class="col-4">
             <nav class="navbar navbar-dark bg-dark buttonArea"
-                style="margin-right: 5px;">
+                style="margin-right: 5px; transform: translate(10%, 0%);">
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#a{{ review.pk }}" aria-controls="{{ review.stars }}" aria-expanded="false" aria-label="Toggle navigation"
-                    style="transform: translate(40%,0%);">
+                    style="transform: translate(50%,0%);">
                   <span class="navbar-toggler-icon"></span>
                 </button>
               </nav>
@@ -189,12 +205,11 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBLDfHtyt6C7NqimxtXZ8imfqH
         </div> <!-- END ROW FOR EXPANSION -->
         <div class="row justify-content-center">
             <div class="pos-f-t"
-                style="display: inline-block;">
+                style="display: inline-block; width: 90%;">
                 <div class="collapse" id="a{{ review.pk }}">
                   <div class="bg-dark p-4"
-                      style="margin-bottom: 10px; border-radius: 5px;">
+                      style="margin-bottom: 10px; border-radius: 5px; margin-left: 0%; margin-right: 0%;">
                     <ul class ="list-group">
-                      <li class="list-group-item" style="background-color: rgb(110, 216, 207);"><b>Reviewer</b> - {{ review.reviewer }}</li>
                       <li class="list-group-item" style="background-color: rgb(110, 216, 207);"><b>Neighboorhood</b> - {{ review.neighborhood }}</li>
                       <li class="list-group-item" style="background-color: rgb(110, 216, 207);"><b>Number of bathrooms</b> - {{ review.bathrooms }}</li>
                       <li class="list-group-item" style="background-color: rgb(110, 216, 207);"><b>Approximate distance</b> to Newcomb - {{ review.distance_to_newcomb }}</li>
