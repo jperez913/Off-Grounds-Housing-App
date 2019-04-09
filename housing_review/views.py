@@ -1,3 +1,6 @@
+import googlemaps #for geocoding
+import json
+
 from django.shortcuts import render
 from django.views import generic
 from django.http import HttpResponse
@@ -59,7 +62,6 @@ def map(request):
   return render(request, "housing_review/map.html", {'lat':38.0314867, 'lng':-78.5090342}) #38.0314867,-78.5090342
 '''
 
-
 @method_decorator(login_required, name='dispatch')
 class ReviewView(generic.View):
     def get(self, request, *args, **kwargs):
@@ -74,6 +76,12 @@ class ReviewView(generic.View):
         text = request.POST['text']
         pub_date = timezone.now()
         address = request.POST['address']
+
+        #gmaps api gecoding
+        gmaps = googlemaps.Client(key='AIzaSyBLDfHtyt6C7NqimxtXZ8imfqHinj_dVNY')
+        geocode_result = gmaps.geocode(address)
+        location = json.dumps( geocode_result[0]['geometry']['location'] )
+
         stars = int(request.POST['stars'])
         price = float(request.POST['price'])
         utilities_cost = float(request.POST['utilities_cost'])
@@ -115,11 +123,11 @@ class ReviewView(generic.View):
             bathrooms=bathrooms,
             bedrooms=bedrooms,
             reviewer=user.pk,
-            distance_to_newcomb=distance_to_newcomb)
+            distance_to_newcomb=distance_to_newcomb,
+            location=location)
         r.save()
 
         return HttpResponseRedirect(reverse('all-review'))
-
 
 @method_decorator(login_required, name='dispatch')
 class Manage(generic.View):
