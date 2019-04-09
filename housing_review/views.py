@@ -1,4 +1,4 @@
-import googlemaps #for geocoding
+import googlemaps  #for geocoding
 import json
 
 from django.shortcuts import render
@@ -62,6 +62,7 @@ def map(request):
   return render(request, "housing_review/map.html", {'lat':38.0314867, 'lng':-78.5090342}) #38.0314867,-78.5090342
 '''
 
+
 @method_decorator(login_required, name='dispatch')
 class ReviewView(generic.View):
     def get(self, request, *args, **kwargs):
@@ -78,9 +79,10 @@ class ReviewView(generic.View):
         address = request.POST['address']
 
         #gmaps api gecoding
-        gmaps = googlemaps.Client(key='AIzaSyBLDfHtyt6C7NqimxtXZ8imfqHinj_dVNY')
+        gmaps = googlemaps.Client(
+            key='AIzaSyBLDfHtyt6C7NqimxtXZ8imfqHinj_dVNY')
         geocode_result = gmaps.geocode(address)
-        location = json.dumps( geocode_result[0]['geometry']['location'] )
+        location = json.dumps(geocode_result[0]['geometry']['location'])
 
         stars = int(request.POST['stars'])
         price = float(request.POST['price'])
@@ -128,6 +130,7 @@ class ReviewView(generic.View):
         r.save()
 
         return HttpResponseRedirect(reverse('all-review'))
+
 
 @method_decorator(login_required, name='dispatch')
 class Manage(generic.View):
@@ -244,18 +247,20 @@ class allReviews(generic.View):
 
         if address != '':
             objects = objects.filter(address=address)
+
+        objects = objects.order_by('-pub_date')
         return render(
             request, "housing_review/all_reviews.html", {
-                'stars': stars, 
-                'min_price' : min_price, 
-                'max_price' : max_price,
-                'min_bed' : min_bed, 
-                'max_bed' : max_bed,
-                'min_bath' : min_bath, 
-                'max_bath' : max_bath,
-                'hood_arr' : hood_arr,
-                'util_arr' : util_arr,
-                'amen_arr' : amen_arr,
+                'stars': stars,
+                'min_price': min_price,
+                'max_price': max_price,
+                'min_bed': min_bed,
+                'max_bed': max_bed,
+                'min_bath': min_bath,
+                'max_bath': max_bath,
+                'hood_arr': hood_arr,
+                'util_arr': util_arr,
+                'amen_arr': amen_arr,
                 'neighborhoods': NEIGHBORHOODS,
                 'utilities': UTILITIES,
                 'amenities': AMENITIES,
