@@ -162,9 +162,9 @@ class Manage(generic.View):
                     amen_arr.append(x)
             user = User.objects.get(email=request.user.email)
             distance_to_newcomb = 1.00  #Get This somehow
-            neighborhood = ",".join(hood_arr)
-            utilities = ",".join(util_arr)
-            amenities = ",".join(amen_arr)
+            neighborhood = ", ".join(hood_arr)
+            utilities = ", ".join(util_arr)
+            amenities = ", ".join(amen_arr)
 
             pk = request.POST['pk']
             review = Review.objects.get(pk=pk)
@@ -195,18 +195,59 @@ class Manage(generic.View):
 @method_decorator(login_required, name='dispatch')
 class allReviews(generic.View):
     def get(self, request, *args, **kwargs):
-        stars = request.GET.get('stars', 1)
+        stars = request.GET.get('stars', "1")
         min_price = request.GET.get('min_price', 0)
         max_price = request.GET.get('max_price', 2500)
-        bedrooms = request.GET.get('bedrooms', 1)
-        bathrooms = request.GET.get('bathrooms', 1)
+        max_bed = request.GET.get('max_bed', 10)
+        min_bed = request.GET.get('min_bed', 0)
+        max_bath = request.GET.get('max_bath', 10)
+        min_bath = request.GET.get('min_bath', 0)
+        address = request.GET.get('address', '')
+
+        hood_arr = []
+        util_arr = []
+        amen_arr = []
+        for hood in NEIGHBORHOODS:
+            x = request.GET.get(hood, "")
+            if x != "":
+                hood_arr.append(x)
+        for util in UTILITIES:
+            x = request.GET.get(util, "")
+            if x != "":
+                util_arr.append(x)
+        for amen in AMENITIES:
+            x = request.GET.get(amen, "")
+            if x != "":
+                amen_arr.append(x)
+
         objects = Review.objects.all().filter(stars__gte=stars)
         objects = objects.filter(price__gte=min_price)
         objects = objects.filter(price__lte=max_price)
-        objects = objects.filter(bedrooms=bedrooms)
-        objects = objects.filter(bathrooms=bathrooms)
+        objects = objects.filter(bedrooms__gte=min_bed)
+        objects = objects.filter(bedrooms__lte=max_bed)
+        objects = objects.filter(bathrooms__gte=min_bath)
+        objects = objects.filter(bathrooms__lte=max_bath)
+        for hood in hood_arr:
+            objects = objects.filter(neighborhood__contains=hood)
+        for amen in amen_arr:
+            objects = objects.filter(amenities__contains=amen)
+        for util in util_arr:
+            objects = objects.filter(utilities__contains=util)
+
+        if address != '':
+            objects = objects.filter(address=address)
         return render(
             request, "housing_review/all_reviews.html", {
+                'stars': stars, 
+                'min_price' : min_price, 
+                'max_price' : max_price,
+                'min_bed' : min_bed, 
+                'max_bed' : max_bed,
+                'min_bath' : min_bath, 
+                'max_bath' : max_bath,
+                'hood_arr' : hood_arr,
+                'util_arr' : util_arr,
+                'amen_arr' : amen_arr,
                 'neighborhoods': NEIGHBORHOODS,
                 'utilities': UTILITIES,
                 'amenities': AMENITIES,
