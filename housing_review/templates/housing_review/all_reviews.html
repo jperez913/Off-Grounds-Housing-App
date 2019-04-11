@@ -18,101 +18,101 @@
 <body>
 
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-         /* Set the size of the div element that contains the map */
-         #map {
-        height: 350px;  /* The height is 400 pixels */
-        width: 100%;  /* The width is the width of the web page */
-       }
-* {
-  box-sizing: border-box;
-}
-.form-group{
-  color : black;
-}
-label{
-  color: black;
-}
-
-.column {
-  width: 750px;
-  padding: 10px;
-  height: 300px; /* Should be removed. Only for demonstration */
-}
-
-/* Clear floats after the columns */
-.row:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-
-.reviewForm {
-  background-color: lightblue;
-  border-radius: 5px;
-  padding-top: 5px;
-  padding-left: 5px;
-  padding-bottom: 5px;
-}
-
-.h1Wrapper {
-  background-color: royalblue;
-  border-radius: 5px;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  padding-left: 5px;
-  margin-top: 5px;
-  margin-bottom: 5px;
-  margin-left: 5px;
-  width: 98%;
-}
-
-.h2Wrapper {
-  background-color: rgba(173, 216, 230, 0.802);
-  border-radius: 5px;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  margin-top: 5px;
-  margin-right: 5px;
-  text-align: center;
-}
-
-.buttonArea {
-  margin-bottom: 5px;
-  border-radius: 5px;
-}
-
-.collapseClass {
-  background-color: rgb(rgba(125, 209, 190, 0.347), green, blue);
-  border-radius: 5px;
-  text-align: center;
-}
-
-.rowElements {
-  background-color: royalblue;
-  border-radius: 5px;
-  text-align: center;
-  margin-left: 30px;
-  margin-top: 5px;
-}
-
-.rowElements2 {
-  background-color: lightblue;
-  border-radius: 5px;
-  text-align: center;
-
-}
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+           /* Set the size of the div element that contains the map */
+           #map {
+          height: 350px;  /* The height is 400 pixels */
+          width: 100%;  /* The width is the width of the web page */
+         }
+  * {
+    box-sizing: border-box;
+  }
+  .form-group{
+    color : black;
+  }
+  label{
+    color: black;
+  }
+  
+  .column {
+    width: 750px;
+    padding: 10px;
+    height: 300px; /* Should be removed. Only for demonstration */
+  }
+  
+  /* Clear floats after the columns */
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  
+  .reviewForm {
+    background-color: lightblue;
+    border-radius: 5px;
+    padding-top: 5px;
+    padding-left: 5px;
+    padding-bottom: 5px;
+  }
+  
+  .h1Wrapper {
+    background-color: royalblue;
+    border-radius: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left: 5px;
+    width: 98%;
+  }
+  
+  .h2Wrapper {
+    background-color: rgba(173, 216, 230, 0.802);
+    border-radius: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-top: 5px;
+    margin-right: 5px;
+    text-align: center;
+  }
+  
+  .buttonArea {
+    margin-bottom: 5px;
+    border-radius: 5px;
+  }
+  
+  .collapseClass {
+    background-color: rgba(173, 216, 230, 0.802);
+    border-radius: 5px;
+    text-align: center;
+  }
+  
+  .rowElements {
+    background-color: rgb(105, 135, 228);
+    border-radius: 5px;
+    text-align: center;
+    margin-left: 30px;
+    margin-top: 5px;
+  }
+  
+  .rowElements2 {
+    background-color: rgb(140, 174, 186);
+    border-radius: 5px;
+    text-align: center;
+  
+  }
+  
 
 </style>
-<div class="h1Wrapper">
   <h1>Reviews</h1>
 </div>
 <div class="container">
 <div class="row">
 <div class="col"
-    style="padding: 0%">
-  <div class="h2Wrapper" style="width: 100%;">
+    style="padding: 0%; padding-top: 20px">
+  <div class="h2Wrapper" style="width: 100%;" >
       <h2>Select filters</h2>
   </div>
     <P ALIGN=RIGHT>
@@ -202,7 +202,7 @@ label{
 
                     <div class="form-group row">
                         <div class="col-3">
-                          <label for="ex1">Min Price</label>
+                          <label for="ex1 font-family: 'Montserrat';">Min Price</label>
                           <input
                           class="form-control"
                           type="number"
@@ -216,7 +216,7 @@ label{
                         />
                         </div>
                         <div class="col-3">
-                          <label for="ex2">Max Price</label>
+                          <label for="ex2 font-family: 'Montserrat';">Max Price</label>
                           <input
                           class="form-control"
                           type="number"
@@ -234,7 +234,7 @@ label{
                         
                       <div class="form-group row">
                           <div class="col-3">
-                            <label for="ex1">Bedrooms Min</label>
+                            <label for="ex1 font-family: 'Montserrat';">Bedrooms Min</label>
                             <input
                             class="form-control"
                             type="number"
@@ -346,7 +346,12 @@ label{
                             </div>
                             {%endfor%}
                         </div> 
-                <input type="submit" value="Submit"><br>
+                <input type="submit" 
+                style="display:inline-block"
+                type="submit"
+                name="submit_type"
+                value="Filter"
+                class="btn btn-primary"value="Submit"><br>
               </form>
     </P>
     <!--The div element for the map -->
@@ -397,9 +402,9 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBLDfHtyt6C7NqimxtXZ8imfqH
 </script>
 </div>
 <div></div>
-<div class="col">
+<div class="col ">
 {% for review in object_list %}
-<div class="collapseClass">
+<div class="collapseClass padding-top: 100px">
         <div class="row"
             style="transform: translate(0%,0%);"> <!--  START FIRST ROW OF REVIEW -->
           <div class="col-3 rowElements">
@@ -412,7 +417,7 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBLDfHtyt6C7NqimxtXZ8imfqH
               <b>Stars: {{ review.stars }}</b>
           </div>
         </div> <!--  END FIRST ROW OF REVIEW -->
-        <div class="row" style="width: 90%; transform: translate(5%, 0%);"> <!--  START SECOND ROW OF REVIEW -->
+        <div class="row" style="width: 90%; transform: translate(5%, 0%); "> <!--  START SECOND ROW OF REVIEW -->
         <div class="col-8 rowElements2">
             <b>Address: {{ review.address }}</b>
         </div>
@@ -433,12 +438,12 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBLDfHtyt6C7NqimxtXZ8imfqH
                   <div class="bg-dark p-4"
                       style="margin-bottom: 10px; border-radius: 5px; margin-left: 0%; margin-right: 0%;">
                     <ul class ="list-group">
-                      <li class="list-group-item" style="background-color: rgb(110, 216, 207);"><b>Neighboorhood</b> - {{ review.neighborhood }}</li>
-                      <li class="list-group-item" style="background-color: rgb(110, 216, 207);"><b>Number of bathrooms</b> - {{ review.bathrooms }}</li>
-                      <li class="list-group-item" style="background-color: rgb(110, 216, 207);"><b>Approximate distance</b> to Newcomb - {{ review.distance_to_newcomb }}</li>
-                      <li class="list-group-item" style="background-color: rgb(110, 216, 207);"><b>Cost of utilities</b> - {{ review.utilities_cost }}</li>
-                      <li class="list-group-item" style="background-color: rgb(110, 216, 207);"><b>Included utilities</b> - {{ review.utilities }}</li>
-                      <li class="list-group-item" style="background-color: rgb(110, 216, 207);"><b>Included amenities</b> - {{ review.amenities }}</li>
+                      <li class="list-group-item" style="background-color: rgb(129, 153, 225);"><b>Neighboorhood</b> - {{ review.neighborhood }}</li>
+                      <li class="list-group-item" style="background-color: rgb(129, 153, 225);"><b>Number of bathrooms</b> - {{ review.bathrooms }}</li>
+                      <li class="list-group-item" style="background-color: rgb(129, 153, 225);"><b>Approximate distance</b> to Newcomb - {{ review.distance_to_newcomb }}</li>
+                      <li class="list-group-item" style="background-color: rgb(129, 153, 225);"><b>Cost of utilities</b> - {{ review.utilities_cost }}</li>
+                      <li class="list-group-item" style="background-color: rgb(129, 153, 225);"><b>Included utilities</b> - {{ review.utilities }}</li>
+                      <li class="list-group-item" style="background-color: rgb(129, 153, 225);"><b>Included amenities</b> - {{ review.amenities }}</li>
                   </div>
                 </div>
               </div>
@@ -448,6 +453,7 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBLDfHtyt6C7NqimxtXZ8imfqH
 
     <br>
 {% empty %}
+
     <li>No Reviews yet.</li>
 {% endfor %}
 </div>
