@@ -27,7 +27,7 @@ def save_user_profile(sender, instance, **kwargs):
     instance.profile.save()
 
 
-NEIGHBORHOODS = ['Wertland', 'Rugby', '14th Street', 'JPA', 'Main Street']
+NEIGHBORHOODS = ['Wertland', 'Rugby', '14th St', 'JPA', 'Main St']
 UTILITIES = ['Electricity', 'Water', 'Internet']
 AMENITIES = ['Parking', 'Pets', 'Pool']
 
@@ -74,6 +74,8 @@ class Review(models.Model):
     utilities_cost = models.FloatField(null=True)
     utilities = models.CharField(max_length=10000, null=True)
     amenities = models.CharField(max_length=10000, null=True)
+    location = models.CharField(max_length=1000, null=True)
+
 
 
 class User(models.Model):

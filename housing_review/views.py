@@ -1,3 +1,6 @@
+import googlemaps  #for geocoding
+import json
+
 from django.shortcuts import render
 from django.views import generic
 from django.http import HttpResponse
@@ -74,6 +77,13 @@ class ReviewView(generic.View):
         text = request.POST['text']
         pub_date = timezone.now()
         address = request.POST['address']
+
+        #gmaps api gecoding
+        gmaps = googlemaps.Client(
+            key='AIzaSyBLDfHtyt6C7NqimxtXZ8imfqHinj_dVNY')
+        geocode_result = gmaps.geocode(address)
+        location = json.dumps(geocode_result[0]['geometry']['location'])
+
         stars = int(request.POST['stars'])
         price = float(request.POST['price'])
         utilities_cost = float(request.POST['utilities_cost'])
@@ -115,7 +125,8 @@ class ReviewView(generic.View):
             bathrooms=bathrooms,
             bedrooms=bedrooms,
             reviewer=user.pk,
-            distance_to_newcomb=distance_to_newcomb)
+            distance_to_newcomb=distance_to_newcomb,
+            location=location)
         r.save()
 
         return HttpResponseRedirect(reverse('all-review'))
@@ -162,9 +173,9 @@ class Manage(generic.View):
                     amen_arr.append(x)
             user = User.objects.get(email=request.user.email)
             distance_to_newcomb = 1.00  #Get This somehow
-            neighborhood = ",".join(hood_arr)
-            utilities = ",".join(util_arr)
-            amenities = ",".join(amen_arr)
+            neighborhood = ", ".join(hood_arr)
+            utilities = ", ".join(util_arr)
+            amenities = ", ".join(amen_arr)
 
             pk = request.POST['pk']
             review = Review.objects.get(pk=pk)
@@ -193,9 +204,65 @@ class Manage(generic.View):
 
 
 @method_decorator(login_required, name='dispatch')
-class allReviews(ListView):
-    model = Review
-    template_name = 'housing_review/all_reviews.html'
+class allReviews(generic.View):
+    def get(self, request, *args, **kwargs):
+        stars = request.GET.get('stars', "1")
+        min_price = request.GET.get('min_price', 0)
+        max_price = request.GET.get('max_price', 2500)
+        max_bed = request.GET.get('max_bed', 10)
+        min_bed = request.GET.get('min_bed', 0)
+        max_bath = request.GET.get('max_bath', 10)
+        min_bath = request.GET.get('min_bath', 0)
+        address = request.GET.get('address', '')
 
-    def get_queryset(self):
-        return Review.objects.all()
+        hood_arr = []
+        util_arr = []
+        amen_arr = []
+        for hood in NEIGHBORHOODS:
+            x = request.GET.get(hood, "")
+            if x != "":
+                hood_arr.append(x)
+        for util in UTILITIES:
+            x = request.GET.get(util, "")
+            if x != "":
+                util_arr.append(x)
+        for amen in AMENITIES:
+            x = request.GET.get(amen, "")
+            if x != "":
+                amen_arr.append(x)
+
+        objects = Review.objects.all().filter(stars__gte=stars)
+        objects = objects.filter(price__gte=min_price)
+        objects = objects.filter(price__lte=max_price)
+        objects = objects.filter(bedrooms__gte=min_bed)
+        objects = objects.filter(bedrooms__lte=max_bed)
+        objects = objects.filter(bathrooms__gte=min_bath)
+        objects = objects.filter(bathrooms__lte=max_bath)
+        for hood in hood_arr:
+            objects = objects.filter(neighborhood__contains=hood)
+        for amen in amen_arr:
+            objects = objects.filter(amenities__contains=amen)
+        for util in util_arr:
+            objects = objects.filter(utilities__contains=util)
+
+        if address != '':
+            objects = objects.filter(address=address)
+
+        objects = objects.order_by('-pub_date')
+        return render(
+            request, "housing_review/all_reviews.html", {
+                'stars': stars,
+                'min_price': min_price,
+                'max_price': max_price,
+                'min_bed': min_bed,
+                'max_bed': max_bed,
+                'min_bath': min_bath,
+                'max_bath': max_bath,
+                'hood_arr': hood_arr,
+                'util_arr': util_arr,
+                'amen_arr': amen_arr,
+                'neighborhoods': NEIGHBORHOODS,
+                'utilities': UTILITIES,
+                'amenities': AMENITIES,
+                'object_list': objects
+            })

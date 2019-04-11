@@ -97,7 +97,7 @@
   background-color: rgb(110, 216, 207);
   border-radius: 5px;
   text-align: center;
-  margin-left: 4px;
+  margin-left: 30px;
   margin-top: 5px;
 }
 
@@ -125,19 +125,236 @@
       <h2>Select filters</h2>
   </div>
     <P ALIGN=RIGHT>
-            <form class="reviewForm" action="/action_page.php" method="get">
-                Address: <input type="text" name="filter" value=""><br><br>
-                Maximum Stars:
-                <input type="radio" name="gender" value="1"> 1
-                <input type="radio" name="gender" value="2"> 2
-                <input type="radio" name="gender" value="3"> 3
-                <input type="radio" name="gender" value="4"> 4
-                <input type="radio" name="gender" value="5"> 5<br><br>
-                Minimum Price: <input type="text" name="min" value="0" size="4">
-                Maximum Price: <input type="text" name="min" value="1000" size="4"><br><br>
-                Parking available? <input type="checkbox" name="filter"><br><br>
-                Number of bedrooms: <input type="text" name="filter" size="2"><br><br>
-                Number of bathrooms: <input type="text" name="filter" size="2"><br><br>
+            <form class="reviewForm" method="get">
+                <fieldset class="form-group">
+                    <div class="row">
+                      <legend class="col-form-label col-sm-3 pt-0">Min Stars</legend>
+                      <div class="col-sm-9">
+                        <div class="form-check form-check-inline">
+                          <input
+                            class="form-check-input"
+                            type="radio"
+                            name="stars"
+                            id="stars1"
+                            value="1"
+                            {% if stars == "1" %}
+                              checked
+                            {% endif %}
+                          />
+                          <label class="form-check-label" for="stars1">
+                            1
+                          </label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                          <input
+                            class="form-check-input"
+                            type="radio"
+                            name="stars"
+                            id="stars2"
+                            value="2"
+                            {% if stars == "2" %}
+                            checked
+                          {% endif %}
+                          />
+                          <label class="form-check-label" for="stars2">
+                            2
+                          </label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                          <input
+                            class="form-check-input"
+                            type="radio"
+                            name="stars"
+                            id="stars3"
+                            value="3"
+                            {% if stars == "3" %}
+                            checked
+                          {% endif %}
+                          />
+                          <label class="form-check-label" for="stars3">
+                            3
+                          </label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                          <input
+                            class="form-check-input"
+                            type="radio"
+                            name="stars"
+                            id="stars4"
+                            value="4"
+                            {% if stars == "4" %}
+                            checked
+                          {% endif %}
+                          />
+                          <label class="form-check-label" for="stars4">
+                            4
+                          </label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                          <input
+                            class="form-check-input"
+                            type="radio"
+                            name="stars"
+                            id="stars5"
+                            value="5"
+                            {% if stars == "5" %}
+                            checked
+                          {% endif %}
+                          />
+                          <label class="form-check-label" for="stars5">
+                            5
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </fieldset>
+
+                    <div class="form-group row">
+                        <div class="col-3">
+                          <label for="ex1">Min Price</label>
+                          <input
+                          class="form-control"
+                          type="number"
+                          min="0.00"
+                          max="2500"
+                          step="0.01"
+                          value="{{min_price}}"
+                          name="min_price"
+                          id="minPrice"
+                          size="8"
+                        />
+                        </div>
+                        <div class="col-3">
+                          <label for="ex2">Max Price</label>
+                          <input
+                          class="form-control"
+                          type="number"
+                          min="0.00"
+                          max="2500"
+                          step="0.01"
+                          value="{{max_price}}"
+                          name="max_price"
+                          id="maxPrice"
+                          size="8"
+                        />
+                        </div>
+
+                      </div> 
+                        
+                      <div class="form-group row">
+                          <div class="col-3">
+                            <label for="ex1">Bedrooms Min</label>
+                            <input
+                            class="form-control"
+                            type="number"
+                            min="0"
+                            max="10"
+                            step="1"
+                            value="{{min_bed}}"
+                            name="min_bed"
+                          />
+                          </div>
+                          <div class="col-3">
+                              <label for="ex1">Bedrooms Max</label>
+                              <input
+                              class="form-control"
+                              type="number"
+                              min="0"
+                              max="10"
+                              step="1"
+                              value="{{max_bed}}"
+                              name="max_bed"
+                            />
+                            </div>
+                          <div class="col-3">
+                            <label for="ex2">Bathrooms Min</label>
+                            <input
+                            class="form-control"
+                            type="number"
+                            min="0"
+                            step="1"
+                            max="10"
+                            value="{{min_bath}}"
+                            name="min_bath"
+                          />
+                          </div>
+                          <div class="col-3">
+                              <label for="ex2">Bathrooms Max</label>
+                              <input
+                              class="form-control"
+                              type="number"
+                              min="0"
+                              step="1"
+                              max="10"
+                              value="{{max_bath}}"
+                              name="max_bath"
+                            />
+                            </div>
+  
+                        </div> 
+                    
+                        <div class="form-group row">
+                            <legend class="col-form-label col-sm-3 pt-0">Utilities</legend>
+                            {%for util in utilities%}
+                            <div class="col-3 form-check">
+                              <input
+                                class="form-check-input"
+                                type="checkbox"
+                                id="{{ util }}"
+                                name="{{ util }}"
+                                value="{{ util }}"
+                                {% if util in util_arr %}
+                                checked
+                              {% endif %}
+                              />
+                              <label class="form-check-label" for="{{ util }}">
+                                {{ util }}
+                              </label>
+                            </div>
+                            {%endfor%}
+                        </div> 
+
+                        <div class="form-group row">
+                            <legend class="col-form-label col-sm-3 pt-0">Neighborhoods</legend>
+                            {% for hood in neighborhoods %}
+                            <div class="col-3 form-check">
+                              <input
+                                class="form-check-input"
+                                type="checkbox"
+                                id="{{ hood }}"
+                                name="{{ hood }}"
+                                value="{{ hood }}"
+                                {% if hood in hood_arr %}
+                                checked
+                              {% endif %}
+                              />
+                              <label class="form-check-label" for="{{ hood }}">
+                                {{ hood }}
+                              </label>
+                            </div>
+                            {%endfor%}
+                        </div> 
+
+                        <div class="form-group row">
+                            <legend class="col-form-label col-sm-3 pt-0">Amenities</legend>
+                            {% for amen in amenities %}
+                            <div class="col-3 form-check">
+                              <input
+                                class="form-check-input"
+                                type="checkbox"
+                                id="{{ amen }}"
+                                name="{{ amen }}"
+                                value="{{ amen }}"
+                                {% if amen in amen_arr %}
+                                checked
+                              {% endif %}
+                              />
+                              <label class="form-check-label" for="{{ amen }}">
+                                {{ amen }}
+                              </label>
+                            </div>
+                            {%endfor%}
+                        </div> 
                 <input type="submit" value="Submit"><br>
               </form>
     </P>
@@ -152,15 +369,31 @@ function initMap() { //38.0358961,-78.5066878
   var map = new google.maps.Map(
       document.getElementById('map'), {zoom: 15, center: newc});
   // The marker, positioned at newc
-  var marker = new google.maps.Marker({position: newc, map: map});
-
+  // var marker = new google.maps.Marker({position: newc, map: map});
   //make grandmarc 38.037213,-78.5015677
-  var grandmarc = {lat: 38.037213, lng: -78.5015677};
-  var marker = new google.maps.Marker({position: grandmarc, map:map});
-
+  // var grandmarc = {lat: 38.037213, lng: -78.5015677};
+  // var marker = new google.maps.Marker({position: grandmarc, map:map});
   //add variable location
   // var varLoc = {lat:{{lat}}, lng:{{lng}}};
   // var marker = new google.maps.Marker({position: varLoc, map: map})
+{% for review in object_list %}
+  console.log("yeep");
+  // console.log( {{review}} );
+  console.log(decodeHtml('{{review.location}}'));
+  if (!('{{review.location}}' === 'None'))
+  {
+    var pos = decodeHtml('{{review.location}}');
+    var posR = pos.replace(/'/g, "\"");
+    console.log("Pos: " + posR);
+    var posObj = JSON.parse(posR);
+    var marker = new google.maps.Marker({position: posObj, map:map });
+  }
+{% endfor %}
+}
+function decodeHtml(html) {
+    var txt = document.createElement("textarea");
+    txt.innerHTML = html;
+    return txt.value;
 }
 </script>
 <!--Load the API from the specified URL
@@ -177,7 +410,7 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBLDfHtyt6C7NqimxtXZ8imfqH
 {% for review in object_list %}
 <div class="collapseClass">
         <div class="row"
-            style="transform: translate(12%,0%);"> <!--  START FIRST ROW OF REVIEW -->
+            style="transform: translate(0%,0%);"> <!--  START FIRST ROW OF REVIEW -->
           <div class="col-3 rowElements">
               <b>Price: {{ review.price }}</b>
           </div>
@@ -188,15 +421,15 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBLDfHtyt6C7NqimxtXZ8imfqH
               <b>Stars: {{ review.stars }}</b>
           </div>
         </div> <!--  END FIRST ROW OF REVIEW -->
-        <div class="row" style="width: 90%; transform: translate(10%, 0%);"> <!--  START SECOND ROW OF REVIEW -->
+        <div class="row" style="width: 90%; transform: translate(5%, 0%);"> <!--  START SECOND ROW OF REVIEW -->
         <div class="col-8 rowElements2">
             <b>Address: {{ review.address }}</b>
         </div>
         <div class="col-4">
             <nav class="navbar navbar-dark bg-dark buttonArea"
-                style="margin-right: 5px;">
+                style="margin-right: 5px; transform: translate(10%, 0%);">
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#a{{ review.pk }}" aria-controls="{{ review.stars }}" aria-expanded="false" aria-label="Toggle navigation"
-                    style="transform: translate(40%,0%);">
+                    style="transform: translate(50%,0%);">
                   <span class="navbar-toggler-icon"></span>
                 </button>
               </nav>
@@ -204,10 +437,10 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBLDfHtyt6C7NqimxtXZ8imfqH
         </div> <!-- END ROW FOR EXPANSION -->
         <div class="row justify-content-center">
             <div class="pos-f-t"
-                style="display: inline-block;">
+                style="display: inline-block; width: 90%;">
                 <div class="collapse" id="a{{ review.pk }}">
                   <div class="bg-dark p-4"
-                      style="margin-bottom: 10px; border-radius: 5px;">
+                      style="margin-bottom: 10px; border-radius: 5px; margin-left: 0%; margin-right: 0%;">
                     <ul class ="list-group">
                       <li class="list-group-item" style="background-color: rgb(110, 216, 207);"><b>Neighboorhood</b> - {{ review.neighborhood }}</li>
                       <li class="list-group-item" style="background-color: rgb(110, 216, 207);"><b>Number of bathrooms</b> - {{ review.bathrooms }}</li>
