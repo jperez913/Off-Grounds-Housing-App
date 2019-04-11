@@ -34,20 +34,20 @@
   label{
     color: black;
   }
-  
+
   .column {
     width: 750px;
     padding: 10px;
     height: 300px; /* Should be removed. Only for demonstration */
   }
-  
+
   /* Clear floats after the columns */
   .row:after {
     content: "";
     display: table;
     clear: both;
   }
-  
+
   .reviewForm {
     background-color: lightblue;
     border-radius: 5px;
@@ -55,7 +55,7 @@
     padding-left: 5px;
     padding-bottom: 5px;
   }
-  
+
   .h1Wrapper {
     background-color: royalblue;
     border-radius: 5px;
@@ -67,7 +67,7 @@
     margin-left: 5px;
     width: 98%;
   }
-  
+
   .h2Wrapper {
     background-color: rgba(173, 216, 230, 0.802);
     border-radius: 5px;
@@ -77,18 +77,18 @@
     margin-right: 5px;
     text-align: center;
   }
-  
+
   .buttonArea {
     margin-bottom: 5px;
     border-radius: 5px;
   }
-  
+
   .collapseClass {
     background-color: rgba(173, 216, 230, 0.802);
     border-radius: 5px;
     text-align: center;
   }
-  
+
   .rowElements {
     background-color: rgb(105, 135, 228);
     border-radius: 5px;
@@ -96,14 +96,14 @@
     margin-left: 30px;
     margin-top: 5px;
   }
-  
+
   .rowElements2 {
     background-color: rgb(140, 174, 186);
     border-radius: 5px;
     text-align: center;
-  
+
   }
-  
+
 
 </style>
   <h1>Reviews</h1>
@@ -230,8 +230,8 @@
                         />
                         </div>
 
-                      </div> 
-                        
+                      </div>
+
                       <div class="form-group row">
                           <div class="col-3">
                             <label for="ex1 font-family: 'Montserrat';">Bedrooms Min</label>
@@ -281,9 +281,9 @@
                               name="max_bath"
                             />
                             </div>
-  
-                        </div> 
-                    
+
+                        </div>
+
                         <div class="form-group row">
                             <legend class="col-form-label col-sm-3 pt-0">Utilities</legend>
                             {%for util in utilities%}
@@ -303,7 +303,7 @@
                               </label>
                             </div>
                             {%endfor%}
-                        </div> 
+                        </div>
 
                         <div class="form-group row">
                             <legend class="col-form-label col-sm-3 pt-0">Neighborhoods</legend>
@@ -324,7 +324,7 @@
                               </label>
                             </div>
                             {%endfor%}
-                        </div> 
+                        </div>
 
                         <div class="form-group row">
                             <legend class="col-form-label col-sm-3 pt-0">Amenities</legend>
@@ -345,8 +345,8 @@
                               </label>
                             </div>
                             {%endfor%}
-                        </div> 
-                <input type="submit" 
+                        </div>
+                <input type="submit"
                 style="display:inline-block"
                 type="submit"
                 name="submit_type"
@@ -402,7 +402,8 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBLDfHtyt6C7NqimxtXZ8imfqH
 </script>
 </div>
 <div></div>
-<div class="col ">
+<div class="col"
+    style="padding: 0%; padding-top: 25px; padding-left: 10px;">
 {% for review in object_list %}
 <div class="collapseClass padding-top: 100px">
         <div class="row"
