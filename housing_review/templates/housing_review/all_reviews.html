@@ -28,6 +28,16 @@
 * {
   box-sizing: border-box;
 }
+.grid {
+  border: 1px solid red;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-auto-rows: 70vh;
+}
+
+.item {
+  border: 1px solid black;
+}
 
 .column {
   width: 750px;
@@ -99,7 +109,12 @@
 }
 
 </style>
-<div class="h1Wrapper">
+<div class="grid">
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+  </div>
   <h1>Reviews</h1>
 </div>
 <div class="container">
@@ -194,7 +209,6 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBLDfHtyt6C7NqimxtXZ8imfqH
                   <div class="bg-dark p-4"
                       style="margin-bottom: 10px; border-radius: 5px;">
                     <ul class ="list-group">
-                      <li class="list-group-item" style="background-color: rgb(110, 216, 207);"><b>Reviewer</b> - {{ review.reviewer }}</li>
                       <li class="list-group-item" style="background-color: rgb(110, 216, 207);"><b>Neighboorhood</b> - {{ review.neighborhood }}</li>
                       <li class="list-group-item" style="background-color: rgb(110, 216, 207);"><b>Number of bathrooms</b> - {{ review.bathrooms }}</li>
                       <li class="list-group-item" style="background-color: rgb(110, 216, 207);"><b>Approximate distance</b> to Newcomb - {{ review.distance_to_newcomb }}</li>
