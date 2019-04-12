@@ -106,14 +106,14 @@
 
 
 </style>
-  <h1>Reviews</h1>
 </div>
 <div class="container">
 <div class="row">
 <div class="col h-100 sticky-top"
-    style="padding: 0%; padding-top: 25px">
+    style="padding: 0%; padding-top: 60px">
     <P ALIGN=RIGHT></P>
-            <form class="reviewForm" method="get">
+            <form class="reviewForm"
+                style="height:50%; overflow-y: scroll;"method="get">
                 <fieldset class="form-group">
                     <div class="row">
                       <legend class="col-form-label col-sm-3 pt-0">Min Stars</legend>
@@ -417,7 +417,7 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBLDfHtyt6C7NqimxtXZ8imfqH
   </script>
 
 <div class="col"
-    style="padding: 0%; padding-top: 40px; padding-left: 10px;">
+    style="padding: 0%; margin-top: 69px; padding-left: 10px;">
 {% for review in object_list %}
 <div class="card" style="width:100%;">
   <div class="card-body">
