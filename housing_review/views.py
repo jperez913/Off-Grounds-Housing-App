@@ -79,10 +79,18 @@ class ReviewView(generic.View):
         address = request.POST['address']
 
         #gmaps api gecoding
-        gmaps = googlemaps.Client(
-            key='AIzaSyBLDfHtyt6C7NqimxtXZ8imfqHinj_dVNY')
-        geocode_result = gmaps.geocode(address)
-        location = json.dumps(geocode_result[0]['geometry']['location'])
+        try:
+            gmaps = googlemaps.Client(
+                key='AIzaSyBLDfHtyt6C7NqimxtXZ8imfqHinj_dVNY')
+            geocode_result = gmaps.geocode(address)
+            location = json.dumps(geocode_result[0]['geometry']['location'])
+        except:
+            return render(
+            request, "housing_review/review.html", {
+                'neighborhoods': NEIGHBORHOODS,
+                'utilities': UTILITIES,
+                'amenities': AMENITIES
+            })
         # print("location stored in model " + location)
 
         stars = int(request.POST['stars'])
