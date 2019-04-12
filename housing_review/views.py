@@ -264,5 +264,6 @@ class allReviews(generic.View):
                 'neighborhoods': NEIGHBORHOODS,
                 'utilities': UTILITIES,
                 'amenities': AMENITIES,
-                'object_list': objects
+                'object_list': objects,
+                'five_arr': [0,1,2,3,4]
             })
