@@ -346,7 +346,8 @@
                             </div>
                             {%endfor%}
                         </div>
-                <input type="submit"
+                <input id="location" type="text" name="location" value="" >
+                <input id="submit_button" type="submit"
                 style="display:inline-block"
                 type="submit"
                 name="submit_type"
@@ -378,11 +379,16 @@ function initMap() { //38.0358961,-78.5066878
   console.log(decodeHtml('{{review.location}}'));
   if (!('{{review.location}}' === 'None'))
   {
-    var pos = decodeHtml('{{review.location}}');
-    var posR = pos.replace(/'/g, "\"");
+    let pos = decodeHtml('{{review.location}}');
+    let posR = pos.replace(/'/g, "\"");
     console.log("Pos: " + posR);
-    var posObj = JSON.parse(posR);
-    var marker = new google.maps.Marker({position: posObj, map:map });
+    let posObj = JSON.parse(posR);
+    var marker = new google.maps.Marker({position: posObj, map:map }); //on click fill in the html value and submit filter
+    marker.addListener('click', function() {
+      document.getElementById("location").value = posR;
+      console.log("location! " + document.getElementById("location").value);
+      document.getElementById("submit_button").click();
+    });
   }
 {% endfor %}
 }

@@ -83,6 +83,7 @@ class ReviewView(generic.View):
             key='AIzaSyBLDfHtyt6C7NqimxtXZ8imfqHinj_dVNY')
         geocode_result = gmaps.geocode(address)
         location = json.dumps(geocode_result[0]['geometry']['location'])
+        # print("location stored in model " + location)
 
         stars = int(request.POST['stars'])
         price = float(request.POST['price'])
@@ -214,6 +215,9 @@ class allReviews(generic.View):
         max_bath = request.GET.get('max_bath', 10)
         min_bath = request.GET.get('min_bath', 0)
         address = request.GET.get('address', '')
+        location = request.GET.get('location', '')
+        # print("printing location!!")
+        # print(request.GET.get('location', ''))
 
         hood_arr = []
         util_arr = []
@@ -245,8 +249,8 @@ class allReviews(generic.View):
         for util in util_arr:
             objects = objects.filter(utilities__contains=util)
 
-        if address != '':
-            objects = objects.filter(address=address)
+        if location != '':
+            objects = objects.filter(location=location)
 
         objects = objects.order_by('-pub_date')
         return render(
