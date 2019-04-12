@@ -68,16 +68,6 @@
     width: 98%;
   }
   
-  .h2Wrapper {
-    background-color: rgba(173, 216, 230, 0.802);
-    border-radius: 5px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    margin-top: 5px;
-    margin-right: 5px;
-    text-align: center;
-  }
-  
   .buttonArea {
     margin-bottom: 5px;
     border-radius: 5px;
@@ -104,7 +94,42 @@
   
   }
   
+  #filter {
+    height:50%;
+    font-size:14;
+  }
 
+  .checkboxtext{
+  font-size: 14px;
+  display: inline;
+  }
+
+  .checkboxoptions{
+    margin: 0px 0px 0px 0px;
+  }
+
+  .form-check-input{
+    width:6px;
+    height:6px;
+  }
+
+  label{
+    font-size:14px;
+  }
+
+  input[type=radio   ]:not(old){
+  width   : 0px;
+  margin  : 0px;
+  padding : 0px;
+  opacity : 0px;
+  }
+
+  input[type=checkbox   ]:not(old){
+  width   : 0px;
+  margin  : 0px;
+  padding : 0px;
+  opacity : 0px;
+  }
 </style>
   <h1>Reviews</h1>
 </div>
@@ -112,14 +137,12 @@
 <div class="row">
 <div class="col"
     style="padding: 0%; padding-top: 20px">
-  <div class="h2Wrapper" style="width: 100%;" >
-      <h2>Select filters</h2>
-  </div>
     <P ALIGN=RIGHT>
+      <div id="filter">
             <form class="reviewForm" method="get">
                 <fieldset class="form-group">
                     <div class="row">
-                      <legend class="col-form-label col-sm-3 pt-0">Min Stars</legend>
+                      <legend class="col-form-label col-sm-3 pt-0"><b>Min Stars</b></legend>
                       <div class="col-sm-9">
                         <div class="form-check form-check-inline">
                           <input
@@ -202,7 +225,7 @@
 
                     <div class="form-group row">
                         <div class="col-3">
-                          <label for="ex1 font-family: 'Montserrat';">Min Price</label>
+                          <label for="ex1 font-family: 'Montserrat';"><b>Min Price</b></label>
                           <input
                           class="form-control"
                           type="number"
@@ -213,10 +236,11 @@
                           name="min_price"
                           id="minPrice"
                           size="8"
+                          style="height:15px;width:75px;font-size:10pt;"
                         />
                         </div>
                         <div class="col-3">
-                          <label for="ex2 font-family: 'Montserrat';">Max Price</label>
+                          <label for="ex2 font-family: 'Montserrat';"><b>Max Price</b></label>
                           <input
                           class="form-control"
                           type="number"
@@ -227,6 +251,7 @@
                           name="max_price"
                           id="maxPrice"
                           size="8"
+                          style="height:15px;width:75px;font-size:10pt;"
                         />
                         </div>
 
@@ -234,7 +259,7 @@
                         
                       <div class="form-group row">
                           <div class="col-3">
-                            <label for="ex1 font-family: 'Montserrat';">Bedrooms Min</label>
+                            <label for="ex1 font-family: 'Montserrat';"><b>Bedrooms Min</b></label>
                             <input
                             class="form-control"
                             type="number"
@@ -243,10 +268,11 @@
                             step="1"
                             value="{{min_bed}}"
                             name="min_bed"
+                            style="height:15px;width:75px;font-size:10pt;"
                           />
                           </div>
                           <div class="col-3">
-                              <label for="ex1">Bedrooms Max</label>
+                              <label for="ex1"><b>Bedrooms Max</b></label>
                               <input
                               class="form-control"
                               type="number"
@@ -255,10 +281,11 @@
                               step="1"
                               value="{{max_bed}}"
                               name="max_bed"
+                              style="height:15px;width:75px;font-size:10pt;"
                             />
                             </div>
                           <div class="col-3">
-                            <label for="ex2">Bathrooms Min</label>
+                            <label for="ex2"><b>Bathrooms Min</b></label>
                             <input
                             class="form-control"
                             type="number"
@@ -267,10 +294,11 @@
                             max="10"
                             value="{{min_bath}}"
                             name="min_bath"
+                            style="height:15px;width:75px;font-size:10pt;"
                           />
                           </div>
                           <div class="col-3">
-                              <label for="ex2">Bathrooms Max</label>
+                              <label for="ex2"><b>Bathrooms Max</b></label>
                               <input
                               class="form-control"
                               type="number"
@@ -279,13 +307,14 @@
                               max="10"
                               value="{{max_bath}}"
                               name="max_bath"
+                              style="height:15px;width:75px;font-size:10pt;"
                             />
                             </div>
   
                         </div> 
                     
                         <div class="form-group row">
-                            <legend class="col-form-label col-sm-3 pt-0">Utilities</legend>
+                            <span class="checkboxtext"><legend class="col-form-label col-sm-3 pt-0"><b>Utilities</b></legend></span>
                             {%for util in utilities%}
                             <div class="col-3 form-check">
                               <input
@@ -294,6 +323,7 @@
                                 id="{{ util }}"
                                 name="{{ util }}"
                                 value="{{ util }}"
+                                style="margin-right: 0px"
                                 {% if util in util_arr %}
                                 checked
                               {% endif %}
@@ -306,7 +336,7 @@
                         </div> 
 
                         <div class="form-group row">
-                            <legend class="col-form-label col-sm-3 pt-0">Neighborhoods</legend>
+                            <span class="checkboxtext"><legend class="col-form-label col-sm-3 pt-0"><b>Neighborhoods</b></legend></span>
                             {% for hood in neighborhoods %}
                             <div class="col-3 form-check">
                               <input
@@ -315,6 +345,7 @@
                                 id="{{ hood }}"
                                 name="{{ hood }}"
                                 value="{{ hood }}"
+                                style="margin-right: 0px"
                                 {% if hood in hood_arr %}
                                 checked
                               {% endif %}
@@ -327,7 +358,7 @@
                         </div> 
 
                         <div class="form-group row">
-                            <legend class="col-form-label col-sm-3 pt-0">Amenities</legend>
+                            <span class="checkboxtext"><legend class="col-form-label col-sm-3 pt-0"><b>Amenities</b></legend></span>
                             {% for amen in amenities %}
                             <div class="col-3 form-check">
                               <input
@@ -353,6 +384,7 @@
                 value="Filter"
                 class="btn btn-primary"value="Submit"><br>
               </form>
+            </div>
     </P>
     <!--The div element for the map -->
 <div id="map"></div>
