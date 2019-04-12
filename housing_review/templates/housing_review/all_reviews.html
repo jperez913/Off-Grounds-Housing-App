@@ -34,20 +34,17 @@
   label{
     color: black;
   }
-
   .column {
     width: 750px;
     padding: 10px;
     height: 300px; /* Should be removed. Only for demonstration */
   }
-
   /* Clear floats after the columns */
   .row:after {
     content: "";
     display: table;
     clear: both;
   }
-
   .reviewForm {
     background-color: lightblue;
     border-radius: 5px;
@@ -55,7 +52,6 @@
     padding-left: 5px;
     padding-bottom: 5px;
   }
-
   .h1Wrapper {
     background-color: royalblue;
     border-radius: 5px;
@@ -67,7 +63,6 @@
     margin-left: 5px;
     width: 98%;
   }
-
   .h2Wrapper {
     background-color: rgba(173, 216, 230, 0.802);
     border-radius: 5px;
@@ -77,18 +72,15 @@
     margin-right: 5px;
     text-align: center;
   }
-
   .buttonArea {
     margin-bottom: 5px;
     border-radius: 5px;
   }
-
   .collapseClass {
     background-color: rgba(173, 216, 230, 0.802);
     border-radius: 5px;
     text-align: center;
   }
-
   .rowElements {
     background-color: rgb(105, 135, 228);
     border-radius: 5px;
@@ -96,15 +88,11 @@
     margin-left: 30px;
     margin-top: 5px;
   }
-
   .rowElements2 {
     background-color: rgb(140, 174, 186);
     border-radius: 5px;
     text-align: center;
-
   }
-
-
 </style>
 </div>
 <div class="container">
@@ -116,7 +104,7 @@
                 style="height:50%; overflow-y: scroll;"method="get">
                 <fieldset class="form-group">
                     <div class="row">
-                      <legend class="col-form-label col-sm-3 pt-0"><b>Min Stars</b></legend>
+                      <legend class="col-form-label col-sm-3 pt-0">Min Stars</legend>
                       <div class="col-sm-9">
                         <div class="form-check form-check-inline">
                           <input
@@ -199,7 +187,7 @@
 
                     <div class="form-group row">
                         <div class="col-3">
-                          <label for="ex1 font-family: 'Montserrat';"><b>Min Price</b></label>
+                          <label for="ex1 font-family: 'Montserrat';">Min Price</label>
                           <input
                           class="form-control"
                           type="number"
@@ -210,11 +198,10 @@
                           name="min_price"
                           id="minPrice"
                           size="8"
-                          style="height:15px;width:75px;font-size:10pt;"
                         />
                         </div>
                         <div class="col-3">
-                          <label for="ex2 font-family: 'Montserrat';"><b>Max Price</b></label>
+                          <label for="ex2 font-family: 'Montserrat';">Max Price</label>
                           <input
                           class="form-control"
                           type="number"
@@ -225,7 +212,6 @@
                           name="max_price"
                           id="maxPrice"
                           size="8"
-                          style="height:15px;width:75px;font-size:10pt;"
                         />
                         </div>
 
@@ -233,7 +219,7 @@
 
                       <div class="form-group row">
                           <div class="col-3">
-                            <label for="ex1 font-family: 'Montserrat';"><b>Bedrooms Min</b></label>
+                            <label for="ex1 font-family: 'Montserrat';">Bedrooms Min</label>
                             <input
                             class="form-control"
                             type="number"
@@ -242,11 +228,10 @@
                             step="1"
                             value="{{min_bed}}"
                             name="min_bed"
-                            style="height:15px;width:75px;font-size:10pt;"
                           />
                           </div>
                           <div class="col-3">
-                              <label for="ex1"><b>Bedrooms Max</b></label>
+                              <label for="ex1">Bedrooms Max</label>
                               <input
                               class="form-control"
                               type="number"
@@ -255,11 +240,10 @@
                               step="1"
                               value="{{max_bed}}"
                               name="max_bed"
-                              style="height:15px;width:75px;font-size:10pt;"
                             />
                             </div>
                           <div class="col-3">
-                            <label for="ex2"><b>Bathrooms Min</b></label>
+                            <label for="ex2">Bathrooms Min</label>
                             <input
                             class="form-control"
                             type="number"
@@ -268,11 +252,10 @@
                             max="10"
                             value="{{min_bath}}"
                             name="min_bath"
-                            style="height:15px;width:75px;font-size:10pt;"
                           />
                           </div>
                           <div class="col-3">
-                              <label for="ex2"><b>Bathrooms Max</b></label>
+                              <label for="ex2">Bathrooms Max</label>
                               <input
                               class="form-control"
                               type="number"
@@ -281,14 +264,13 @@
                               max="10"
                               value="{{max_bath}}"
                               name="max_bath"
-                              style="height:15px;width:75px;font-size:10pt;"
                             />
                             </div>
 
                         </div>
 
                         <div class="form-group row">
-                            <span class="checkboxtext"><legend class="col-form-label col-sm-3 pt-0"><b>Utilities</b></legend></span>
+                            <legend class="col-form-label col-sm-3 pt-0">Utilities</legend>
                             {%for util in utilities%}
                             <div class="col-3 form-check">
                               <input
@@ -297,7 +279,6 @@
                                 id="{{ util }}"
                                 name="{{ util }}"
                                 value="{{ util }}"
-                                style="margin-right: 0px"
                                 {% if util in util_arr %}
                                 checked
                               {% endif %}
@@ -310,7 +291,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <span class="checkboxtext"><legend class="col-form-label col-sm-3 pt-0"><b>Neighborhoods</b></legend></span>
+                            <legend class="col-form-label col-sm-3 pt-0">Neighborhoods</legend>
                             {% for hood in neighborhoods %}
                             <div class="col-3 form-check">
                               <input
@@ -319,7 +300,6 @@
                                 id="{{ hood }}"
                                 name="{{ hood }}"
                                 value="{{ hood }}"
-                                style="margin-right: 0px"
                                 {% if hood in hood_arr %}
                                 checked
                               {% endif %}
@@ -332,7 +312,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <span class="checkboxtext"><legend class="col-form-label col-sm-3 pt-0"><b>Amenities</b></legend></span>
+                            <legend class="col-form-label col-sm-3 pt-0">Amenities</legend>
                             {% for amen in amenities %}
                             <div class="col-3 form-check">
                               <input
@@ -351,15 +331,13 @@
                             </div>
                             {%endfor%}
                         </div>
-                <input id="location" type="text" name="location" value="" >
-                <input id="submit_button" type="submit"
+                <input type="submit"
                 style="display:inline-block"
                 type="submit"
                 name="submit_type"
                 value="Filter"
                 class="btn btn-primary"value="Submit"><br>
               </form>
-            </div>
     </P>
     <!--The div element for the map -->
 <div id="map"></div>
@@ -385,16 +363,11 @@ function initMap() { //38.0358961,-78.5066878
   console.log(decodeHtml('{{review.location}}'));
   if (!('{{review.location}}' === 'None'))
   {
-    let pos = decodeHtml('{{review.location}}');
-    let posR = pos.replace(/'/g, "\"");
+    var pos = decodeHtml('{{review.location}}');
+    var posR = pos.replace(/'/g, "\"");
     console.log("Pos: " + posR);
-    let posObj = JSON.parse(posR);
-    var marker = new google.maps.Marker({position: posObj, map:map }); //on click fill in the html value and submit filter
-    marker.addListener('click', function() {
-      document.getElementById("location").value = posR;
-      console.log("location! " + document.getElementById("location").value);
-      document.getElementById("submit_button").click();
-    });
+    var posObj = JSON.parse(posR);
+    var marker = new google.maps.Marker({position: posObj, map:map });
   }
 {% endfor %}
 }
@@ -427,7 +400,6 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBLDfHtyt6C7NqimxtXZ8imfqH
   } else {
     y.style.display = "none";
   }
-
 }
   </script>
 
