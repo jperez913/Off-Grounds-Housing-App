@@ -44,6 +44,8 @@
         document.getElementById(
           review.pk + "stars" + review.stars
         ).checked = true;
+        document.getElementById( review.pk+ "addressID").value = review.address;
+        document.getElementById( review.pk+ "textID").value = review.text;
         hoods = review.neighborhoods.split(",");
         hoods = hoods.filter(function(el) {
           return el != "";
@@ -111,6 +113,8 @@
             <bathrooms>{{ review.bathrooms }}</bathrooms>
             <amenities>{{ review.amenities }}</amenities>
             <utilities>{{ review.utilities }}</utilities>
+            <text>{{ review.text }}</text>
+            <address>{{ review.address }}</address>
             <utilities_cost>{{ review.utilities_cost }}</utilities_cost>
             <pub_date>{{review.pub_date</pub_date>
             <pk>{{ review.pk }}</pk>
