@@ -12,6 +12,5 @@ urlpatterns = [
     path('', views.allReviews.as_view(), name='all-review'),
     #path('map/', views.map, name='map'), Now in all-review
     url(r'^login/$', views.Home, name='login'),
-    url(r'^profile/$', views.update_profile, name='profile'),
     url(r'^account/logout/$', views.Logout, name='logout'),
 ]
