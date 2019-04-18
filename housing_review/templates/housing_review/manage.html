@@ -91,9 +91,9 @@
             id="toggle_button{{ review.pk }}"
             onclick="toggle('{{ review.pk }}');"
           >
-            {{ review.pub_date }}
+            {{ review.address }}
           </button>
-          {{review.address}}
+          {{ review.pub_date }}
           <script>
             var toggle = function(id) {
               var mydiv = document.getElementById("review" + id);
