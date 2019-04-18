@@ -263,6 +263,7 @@ class allReviews(generic.View):
         objects = objects.order_by('-pub_date')
         return render(
             request, "housing_review/all_reviews.html", {
+                'location' : location,
                 'stars': stars,
                 'min_price': min_price,
                 'max_price': max_price,
