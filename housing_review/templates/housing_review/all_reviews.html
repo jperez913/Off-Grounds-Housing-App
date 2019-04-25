@@ -15,7 +15,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<body style="overflow: hidden; width:100%; height:100%; ">
+<body style="overflow-x: scroll; overflow-y:hidden; width:100%; height:100%; min-width:1000px">
 
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -103,9 +103,9 @@ input[type=number]::-webkit-outer-spin-button {
 
 </style>
 </div>
-<div class="row" style="width:100%; height:100%; padding-top:70px;">
+<div class="row" style="width:100%; height:100%; padding-top:70px; min-width: 1160px;">
   <div class="col"  style="width:50%; height:100%; padding-right: 10px; padding-left: 10px;" >
-    <div class="" style="height:50%; width:100%; overflow-y:scroll; overflow-x:none; padding-left:10px;">
+    <div class="col" style="height:50%; width:100%; overflow-y:hidden; overflow-x:hidden; padding-left:10px;">
       <form class="reviewForm" method="get">
           <fieldset class="form-group">
               <div class="row">
@@ -220,10 +220,7 @@ input[type=number]::-webkit-outer-spin-button {
                   />
                   </div>
 
-                </div>
-
-                <div class="form-group row">
-                    <div class="col-3">
+                  <div class="col-3">
                       <label for="ex1 font-family: 'Montserrat';"style="font-size:15px;"><b>Min Bedrooms</b></label>
                       <select
                       class="form-control"
@@ -262,7 +259,7 @@ input[type=number]::-webkit-outer-spin-button {
               </select>
                     </div>
 
-                  </div>
+                </div>
 
                   <div class="form-group row">
                       <legend class="col-form-label col-sm-3 pt-0"><b>Utilities</b></legend>
@@ -327,12 +324,20 @@ input[type=number]::-webkit-outer-spin-button {
                       {%endfor%}
                   </div>
           <input id="location" type="text" name="location" value="{{ location }}" hidden >
-          <input id="submit_button" type="submit"
-          style="display:inline-block"
-          type="submit"
-          name="submit_type"
-          value="Filter"
-          class="btn btn-primary"value="Submit"><br>
+          <div class="form-group row">
+              <input id="submit_button" type="submit"
+              style="margin-left: 10px"
+              type="submit"
+              name="submit_type"
+              value="Filter"
+              class="btn btn-primary"value="Submit">
+              <input id="reset_button" type="submit"
+              style="margin-left: 10px"
+              name="reset_type"
+              value="Reset Filters"
+              class="btn btn-primary">
+          </div>
+
         </form>
       </div>
         <!--The div element for the map -->
@@ -447,6 +452,7 @@ input[type=number]::-webkit-outer-spin-button {
         <div id="review_bottom_{{review.pk}}" style="display:none">
           <p class="card-text"> {{review.text}} </p>
           <ul class ="list-group">
+          <li class="list-group-item" style="padding: 2px;"><b>Published</b>: {{ review.pub_date }}</li>
           <li class="list-group-item" style="padding: 2px;"><b>Neighboorhood</b>: {{ review.neighborhood }}</li>
           <li class="list-group-item" style="padding: 2px;"><b>Number of bathrooms</b>: {{ review.bathrooms }}</li>
           <li class="list-group-item" style="padding: 2px;"><b>Cost of utilities</b>: ${{ review.utilities_cost }}</li>

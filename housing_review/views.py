@@ -70,7 +70,8 @@ class ReviewView(generic.View):
             request, "housing_review/review.html", {
                 'neighborhoods': NEIGHBORHOODS,
                 'utilities': UTILITIES,
-                'amenities': AMENITIES
+                'amenities': AMENITIES, 
+                'address_error':False
             })
 
     def post(self, request, *args, **kwargs):
@@ -89,7 +90,8 @@ class ReviewView(generic.View):
             request, "housing_review/review.html", {
                 'neighborhoods': NEIGHBORHOODS,
                 'utilities': UTILITIES,
-                'amenities': AMENITIES
+                'amenities': AMENITIES, 
+                'address_error': True
             })
         # print("location stored in model " + location)
 
@@ -159,7 +161,7 @@ class Manage(generic.View):
         if submit_type == "update":
             text = request.POST['text']
             pub_date = timezone.now()
-            address = request.POST['address']
+            #address = request.POST['address']
             stars = int(request.POST['stars'])
             price = float(request.POST['price'])
             utilities_cost = float(request.POST['utilities_cost'])
@@ -191,7 +193,7 @@ class Manage(generic.View):
             review.text = text
             review.pub_date = pub_date
             review.neighborhood = neighborhood
-            review.address = address
+            #review.address = address
             review.stars = stars
             review.price = price
             review.utilities = utilities
@@ -215,6 +217,9 @@ class Manage(generic.View):
 @method_decorator(login_required, name='dispatch')
 class allReviews(generic.View):
     def get(self, request, *args, **kwargs):
+        print(request.GET)
+        if(len(request.GET.get('reset_type', [])) > 0):
+          return HttpResponseRedirect(reverse('all-review'))
         stars = request.GET.get('stars', "1")
         min_price = request.GET.get('min_price', 0)
         max_price = request.GET.get('max_price', 2500)
@@ -242,25 +247,27 @@ class allReviews(generic.View):
             x = request.GET.get(amen, "")
             if x != "":
                 amen_arr.append(x)
+        try:
+          objects = Review.objects.all().filter(stars__gte=stars)
+          objects = objects.filter(price__gte=min_price)
+          objects = objects.filter(price__lte=max_price)
+          objects = objects.filter(bedrooms__gte=min_bed)
+          objects = objects.filter(bedrooms__lte=max_bed)
+          objects = objects.filter(bathrooms__gte=min_bath)
+          objects = objects.filter(bathrooms__lte=max_bath)
+          for hood in hood_arr:
+              objects = objects.filter(neighborhood__contains=hood)
+          for amen in amen_arr:
+              objects = objects.filter(amenities__contains=amen)
+          for util in util_arr:
+              objects = objects.filter(utilities__contains=util)
 
-        objects = Review.objects.all().filter(stars__gte=stars)
-        objects = objects.filter(price__gte=min_price)
-        objects = objects.filter(price__lte=max_price)
-        objects = objects.filter(bedrooms__gte=min_bed)
-        objects = objects.filter(bedrooms__lte=max_bed)
-        objects = objects.filter(bathrooms__gte=min_bath)
-        objects = objects.filter(bathrooms__lte=max_bath)
-        for hood in hood_arr:
-            objects = objects.filter(neighborhood__contains=hood)
-        for amen in amen_arr:
-            objects = objects.filter(amenities__contains=amen)
-        for util in util_arr:
-            objects = objects.filter(utilities__contains=util)
+          if location != '':
+              objects = objects.filter(location=location)
 
-        if location != '':
-            objects = objects.filter(location=location)
-
-        objects = objects.order_by('-pub_date')
+          objects = objects.order_by('-pub_date')
+        except:
+          return HttpResponseRedirect(reverse('all-review'))
         return render(
             request, "housing_review/all_reviews.html", {
                 'location' : location,
