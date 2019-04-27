@@ -94,12 +94,30 @@ class ReviewView(generic.View):
                 'address_error': True
             })
         # print("location stored in model " + location)
-
-        stars = int(request.POST['stars'])
-        price = float(request.POST['price'])
-        utilities_cost = float(request.POST['utilities_cost'])
-        bathrooms = int(request.POST['bathrooms'])
-        bedrooms = int(request.POST['bedrooms'])
+        try:
+          stars = int(request.POST['stars'])
+          if stars < 1 or stars > 5:
+            raise Exception
+          price = float(request.POST['price'])
+          if price < 0 or price > 2500:
+            raise Exception
+          utilities_cost = float(request.POST['utilities_cost'])
+          if utilities_cost < 0 or utilities_cost > 2500:
+            raise Exception
+          bathrooms = int(request.POST['bathrooms'])
+          if bathrooms < 0 or bathrooms > 6:
+            raise Exception
+          bedrooms = int(request.POST['bedrooms'])
+          if bedrooms < 0  or bedrooms > 10:
+            raise Exception
+        except:
+            return render(
+            request, "housing_review/review.html", {
+                'neighborhoods': NEIGHBORHOODS,
+                'utilities': UTILITIES,
+                'amenities': AMENITIES, 
+                'address_error': False
+            })
 
         hood_arr = []
         util_arr = []
@@ -119,9 +137,9 @@ class ReviewView(generic.View):
         user = User.objects.get(email=request.user.email)
         distance_to_newcomb = 1.00  #Get This somehow
 
-        neighborhood = ",".join(hood_arr)
-        utilities = ",".join(util_arr)
-        amenities = ",".join(amen_arr)
+        neighborhood = ", ".join(hood_arr)
+        utilities = ", ".join(util_arr)
+        amenities = ", ".join(amen_arr)
 
         r = Review(
             text=text,
@@ -159,14 +177,30 @@ class Manage(generic.View):
     def post(self, request, *args, **kwargs):
         submit_type = request.POST['submit_type']
         if submit_type == "update":
-            text = request.POST['text']
+            print(request.POST)
             pub_date = timezone.now()
             #address = request.POST['address']
-            stars = int(request.POST['stars'])
-            price = float(request.POST['price'])
-            utilities_cost = float(request.POST['utilities_cost'])
-            bathrooms = int(request.POST['bathrooms'])
-            bedrooms = int(request.POST['bedrooms'])
+            try:
+              text = request.POST['text']
+              if(text == ""):
+                raise Exception;
+              stars = int(request.POST['stars'])
+              if stars < 1 or stars > 5:
+                raise Exception
+              price = float(request.POST['price'])
+              if price < 0 or price > 2500:
+                raise Exception
+              utilities_cost = float(request.POST['utilities_cost'])
+              if utilities_cost < 0 or utilities_cost > 2500:
+                raise Exception
+              bathrooms = int(request.POST['bathrooms'])
+              if bathrooms < 0 or bathrooms > 6:
+                raise Exception
+              bedrooms = int(request.POST['bedrooms'])
+              if bedrooms < 0  or bedrooms > 10:
+                raise Exception
+            except:
+              return HttpResponseRedirect(reverse('manage'))
             hood_arr = []
             util_arr = []
             amen_arr = []
@@ -182,6 +216,7 @@ class Manage(generic.View):
                 x = request.POST.get(amen, "")
                 if x != "":
                     amen_arr.append(x)
+            print(hood_arr, util_arr, amen_arr)
             user = User.objects.get(email=request.user.email)
             distance_to_newcomb = 1.00  #Get This somehow
             neighborhood = ", ".join(hood_arr)
@@ -204,12 +239,15 @@ class Manage(generic.View):
             review.bedrooms = bedrooms
             review.reviewer = user.pk
             review.distance_to_newcomb = distance_to_newcomb
-            review.save()
+            if(review.reviewer == user.pk):
+              review.save()
 
         elif submit_type == "delete":
             pk = request.POST['pk']
             review = Review.objects.get(pk=pk)
-            review.delete()
+            user = User.objects.get(email=request.user.email)
+            if(review.reviewer == user.pk):
+              review.delete()
 
         return HttpResponseRedirect(reverse('manage'))
 
@@ -227,7 +265,7 @@ class allReviews(generic.View):
         min_bed = request.GET.get('min_bed', 0)
         max_bath = request.GET.get('max_bath', 10)
         min_bath = request.GET.get('min_bath', 0)
-        address = request.GET.get('address', '')
+        #address = request.GET.get('address', '')
         location = request.GET.get('location', '')
         # print("printing location!!")
         # print(request.GET.get('location', ''))

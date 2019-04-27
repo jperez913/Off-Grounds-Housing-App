@@ -44,14 +44,14 @@
         document.getElementById(
           review.pk + "stars" + review.stars
         ).checked = true;
-        document.getElementById( review.pk+ "addressID").value = review.address;
+        //document.getElementById( review.pk+ "addressID").value = review.address;
         document.getElementById( review.pk+ "textID").value = review.text;
         hoods = review.neighborhoods.split(",");
         hoods = hoods.filter(function(el) {
           return el != "";
         });
         hoods.forEach(element => {
-          document.getElementById(review.pk + "h" + element).checked = true;
+          document.getElementById(review.pk + "h" + element.trim()).checked = true;
         });
         if (review.bedrooms != undefined) {
           document.getElementById(review.pk + "bedrooms").value =
@@ -66,19 +66,15 @@
           return el != "";
         });
         amen.forEach(element => {
-          document.getElementById(review.pk + "a" + element).checked = true;
+          document.getElementById(review.pk + "a" + element.trim()).checked = true;
         });
         util = review.utilities.split(",");
         util = util.filter(function(el) {
           return el != "";
         });
         util.forEach(element => {
-          document.getElementById(review.pk + "u" + element).checked = true;
+          document.getElementById(review.pk + "u" + element.trim()).checked = true;
         });
-        if (review.utilities_cost != undefined) {
-          document.getElementById(review.pk + "util_cost").value =
-            review.utilities_cost;
-        }
       }
     }
     window.onload = init;
@@ -215,28 +211,11 @@
                 </div>
               </div>
             </fieldset>
-            <!--ADDRESS-->
-            <!--
-            <div class="form-group row">
-              <label for="address" class="col-sm-2 col-form-label"
-                >Address</label
-              >
-              <div class="col-sm-10">
-                <input
-                  type="text"
-                  name="address"
-                  class="form-control"
-                  id="{{ review.pk }}addressID"
-                  placeholder="Address"
-                  value="{{ review.address }}"
-                />
-              </div>
-            </div>
-          -->
             <!--TEXT-->
             <div class="form-group">
               <label for="text">Review</label>
               <textarea
+                required
                 class="form-control"
                 id="{{ review.pk }}textID"
                 name="text"
@@ -275,6 +254,7 @@
             <div class="form-group">
               <label for="exampleFormControlInput1">Price per Tenant</label>
               <input
+              required
                 type="number"
                 min="0.01"
                 step="0.01"
@@ -379,6 +359,7 @@
                   >Cost of Utilities per Tenant</label
                 >
                 <input
+                required
                   type="number"
                   name="utilities_cost"
                   min="0.01"
@@ -386,7 +367,7 @@
                   max="2500"
                   class="form-control"
                   id="{{ review.pk }}util_cost"
-                  value="1.00"
+                  value="{{review.utilities_cost}}"
                 />
               </div>
             </fieldset>
