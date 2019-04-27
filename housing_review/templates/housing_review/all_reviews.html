@@ -389,19 +389,14 @@ input[type=number]::-webkit-outer-spin-button {
       // var varLoc = {lat:{{lat}}, lng:{{lng}}};
       // var marker = new google.maps.Marker({position: varLoc, map: map})
     {% for review in object_list %}
-      console.log("yeep");
-      // console.log( {{review}} );
-      console.log(decodeHtml('{{review.location}}'));
       if (!('{{review.location}}' === 'None'))
       {
         let pos = decodeHtml('{{review.location}}');
         let posR = pos.replace(/'/g, "\"");
-        console.log("Pos: " + posR);
         let posObj = JSON.parse(posR);
         var marker = new google.maps.Marker({position: posObj, map:map }); //on click fill in the html value and submit filter
         marker.addListener('click', function() {
           document.getElementById("location").value = posR;
-          console.log("location! " + document.getElementById("location").value);
           document.getElementById("submit_button").click();
         });
       }
@@ -424,7 +419,8 @@ input[type=number]::-webkit-outer-spin-button {
     </div>
   </div>
   <div class="col" style="overflow-y:scroll; width:50%; height:100%; padding-right: 10px;">
-    <script>function myFunction(passed) {
+    <script type="text/javascript">
+    function myFunction(passed) {
       var x = document.getElementById("review_top_"+passed)
       var y = document.getElementById("review_bottom_"+passed)
       if (x.style.display === "none") {
@@ -448,8 +444,20 @@ input[type=number]::-webkit-outer-spin-button {
         document.getElementById("location").value = posR;
         document.getElementById("submit_button").click();
       }
-
     }
+    function fix_dates(){
+      console.log("here")
+      dates = document.getElementsByClassName("date");
+      for(var i=0;i<dates.length;i++){
+        console.log(i);
+        var str = dates[i].innerHTML;
+        var n = str.lastIndexOf(",");
+        var str2 = str.substring(0, n);
+        dates[i].innerHTML = str2;
+        console.log(dates[i].innerHTML)
+      }
+    }
+    window.onload = fix_dates;
       </script>
     {% for review in object_list %}
     <div class="card" style="width:100%;">
@@ -479,7 +487,7 @@ input[type=number]::-webkit-outer-spin-button {
         <div id="review_bottom_{{review.pk}}" style="display:none">
           <p class="card-text"> {{review.text}} </p>
           <ul class ="list-group">
-          <li class="list-group-item" style="padding: 2px;"><b>Published</b>: {{ review.pub_date }}</li>
+          <li class="list-group-item date" style="padding: 2px;"><b>Published</b>:{{ review.pub_date }}</li>
           <li class="list-group-item" style="padding: 2px;"><b>Neighboorhood</b>: {{ review.neighborhood }}</li>
           <li class="list-group-item" style="padding: 2px;"><b>Number of bathrooms</b>: {{ review.bathrooms }}</li>
           <li class="list-group-item" style="padding: 2px;"><b>Cost of utilities</b>: ${{ review.utilities_cost }}</li>
