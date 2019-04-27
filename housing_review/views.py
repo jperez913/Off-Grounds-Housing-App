@@ -258,17 +258,22 @@ class allReviews(generic.View):
         print(request.GET)
         if(len(request.GET.get('reset_type', [])) > 0):
           return HttpResponseRedirect(reverse('all-review'))
-        stars = request.GET.get('stars', "1")
-        min_price = request.GET.get('min_price', 0)
-        max_price = request.GET.get('max_price', 2500)
-        max_bed = request.GET.get('max_bed', 10)
-        min_bed = request.GET.get('min_bed', 0)
-        max_bath = request.GET.get('max_bath', 10)
-        min_bath = request.GET.get('min_bath', 0)
+        try:
+          stars = int(request.GET.get('stars', '1'))
+          min_price = int(request.GET.get('min_price', '0'))
+          max_price = int(request.GET.get('max_price', '2500'))
+          #max_bed = request.GET.get('max_bed', 10)
+          min_bed = int(request.GET.get('min_bed', '1'))
+          #max_bath = request.GET.get('max_bath', 10)
+          min_bath = int(request.GET.get('min_bath', '1'))
+        except:
+          return HttpResponseRedirect(reverse('all-review'))
         #address = request.GET.get('address', '')
         location = request.GET.get('location', '')
         # print("printing location!!")
         # print(request.GET.get('location', ''))
+        if stars < 1 or stars > 5 or min_bed < 1 or min_bed > 10 or min_bath < 1 or min_bath > 6 or min_price < 0 or max_price < 0 or max_price > 2500 or min_price >2500:
+          return HttpResponseRedirect(reverse('all-review'))
 
         hood_arr = []
         util_arr = []
@@ -290,9 +295,9 @@ class allReviews(generic.View):
           objects = objects.filter(price__gte=min_price)
           objects = objects.filter(price__lte=max_price)
           objects = objects.filter(bedrooms__gte=min_bed)
-          objects = objects.filter(bedrooms__lte=max_bed)
+          #objects = objects.filter(bedrooms__lte=max_bed)
           objects = objects.filter(bathrooms__gte=min_bath)
-          objects = objects.filter(bathrooms__lte=max_bath)
+          #objects = objects.filter(bathrooms__lte=max_bath)
           for hood in hood_arr:
               objects = objects.filter(neighborhood__contains=hood)
           for amen in amen_arr:
@@ -306,6 +311,7 @@ class allReviews(generic.View):
           objects = objects.order_by('-pub_date')
         except:
           return HttpResponseRedirect(reverse('all-review'))
+        print(stars)
         return render(
             request, "housing_review/all_reviews.html", {
                 'location' : location,
@@ -313,9 +319,7 @@ class allReviews(generic.View):
                 'min_price': min_price,
                 'max_price': max_price,
                 'min_bed': min_bed,
-                'max_bed': max_bed,
                 'min_bath': min_bath,
-                'max_bath': max_bath,
                 'hood_arr': hood_arr,
                 'util_arr': util_arr,
                 'amen_arr': amen_arr,
