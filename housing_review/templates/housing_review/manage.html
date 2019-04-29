@@ -82,15 +82,17 @@
       {% for review in Reviews %}
       <div class="col-sm-10 pos-f-t"
           style="margin-left:100px;">
-        <nav class="navbar navbar-dark bg-dark buttonArea" style="margin:10px 10px 10px 10px">
+        <nav class="navbar navbar-dark bg-dark buttonArea" style="margin:10px 10px 10px 10px; text-align: center">
           <button
             class="btn btn-primary"
             type="button"
+            style="margin-top: -15px"
             id="toggle_button{{ review.pk }}"
             onclick="toggle('{{ review.pk }}');"
           >
             {{ review.address }}
           </button>
+          
           {{ review.pub_date }}
           <script>
             var toggle = function(id) {
@@ -120,27 +122,7 @@
             {% csrf_token %}
             <div class="form-group row">
               <div class="col-sm-10">
-                <button
-                  style="display:inline-block"
-                  type="submit"
-                  name="submit_type"
-                  value="update"
-                  class="btn btn-primary"
-                  formmethod="post"
-                >
-                  Update
-                </button>
-                <button
-                  style="display:inline-block;background-color:red"
-                  type="submit"
-                  name="submit_type"
-                  value="delete"
-                  class="btn btn-primary"
-                  formmethod="post"
-                >
-                  Delete
-                </button>
-                <input name="pk" value="{{ review.pk }}" hidden readonly />
+                
               </div>
             </div>
             <!--STARS-->
@@ -371,6 +353,28 @@
                 />
               </div>
             </fieldset>
+            <button
+                  style="display:inline-block"
+                  type="submit"
+                  name="submit_type"
+                  value="update"
+                  class="btn btn-primary"
+                  formmethod="post"
+                >
+                  Update
+                </button>
+                <button
+                  style="display:inline-block;background-color:red"
+                  type="submit"
+                  name="submit_type"
+                  value="delete"
+                  class="btn btn-primary"
+                  formmethod="post"
+                >
+                  Delete
+                </button>
+                <input name="pk" value="{{ review.pk }}" hidden readonly />
+                </div>
           </form>
         </div>
       </div>
