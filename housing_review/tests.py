@@ -27,7 +27,6 @@ class LoginTest(TestCase):
     def testuserCFail(self):
         coocoo = User(first_name='John', last_name='Smith', email='bee@test.edu')
         self.assertNotEqual(coocoo.email, 'be@tes.ed')
-    
 
 class ReviewTest(TestCase):
     def testGreatlyrated(self):
