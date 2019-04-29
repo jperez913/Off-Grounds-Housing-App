@@ -70,7 +70,8 @@ class ReviewView(generic.View):
             request, "housing_review/review.html", {
                 'neighborhoods': NEIGHBORHOODS,
                 'utilities': UTILITIES,
-                'amenities': AMENITIES
+                'amenities': AMENITIES, 
+                'address_error':False
             })
 
     def post(self, request, *args, **kwargs):
@@ -89,15 +90,34 @@ class ReviewView(generic.View):
             request, "housing_review/review.html", {
                 'neighborhoods': NEIGHBORHOODS,
                 'utilities': UTILITIES,
-                'amenities': AMENITIES
+                'amenities': AMENITIES, 
+                'address_error': True
             })
         # print("location stored in model " + location)
-
-        stars = int(request.POST['stars'])
-        price = float(request.POST['price'])
-        utilities_cost = float(request.POST['utilities_cost'])
-        bathrooms = int(request.POST['bathrooms'])
-        bedrooms = int(request.POST['bedrooms'])
+        try:
+          stars = int(request.POST['stars'])
+          if stars < 1 or stars > 5:
+            raise Exception
+          price = float(request.POST['price'])
+          if price < 0 or price > 2500:
+            raise Exception
+          utilities_cost = float(request.POST['utilities_cost'])
+          if utilities_cost < 0 or utilities_cost > 2500:
+            raise Exception
+          bathrooms = int(request.POST['bathrooms'])
+          if bathrooms < 0 or bathrooms > 6:
+            raise Exception
+          bedrooms = int(request.POST['bedrooms'])
+          if bedrooms < 0  or bedrooms > 10:
+            raise Exception
+        except:
+            return render(
+            request, "housing_review/review.html", {
+                'neighborhoods': NEIGHBORHOODS,
+                'utilities': UTILITIES,
+                'amenities': AMENITIES, 
+                'address_error': False
+            })
 
         hood_arr = []
         util_arr = []
@@ -117,9 +137,9 @@ class ReviewView(generic.View):
         user = User.objects.get(email=request.user.email)
         distance_to_newcomb = 1.00  #Get This somehow
 
-        neighborhood = ",".join(hood_arr)
-        utilities = ",".join(util_arr)
-        amenities = ",".join(amen_arr)
+        neighborhood = ", ".join(hood_arr)
+        utilities = ", ".join(util_arr)
+        amenities = ", ".join(amen_arr)
 
         r = Review(
             text=text,
@@ -157,14 +177,30 @@ class Manage(generic.View):
     def post(self, request, *args, **kwargs):
         submit_type = request.POST['submit_type']
         if submit_type == "update":
-            text = request.POST['text']
+            print(request.POST)
             pub_date = timezone.now()
-            address = request.POST['address']
-            stars = int(request.POST['stars'])
-            price = float(request.POST['price'])
-            utilities_cost = float(request.POST['utilities_cost'])
-            bathrooms = int(request.POST['bathrooms'])
-            bedrooms = int(request.POST['bedrooms'])
+            #address = request.POST['address']
+            try:
+              text = request.POST['text']
+              if(text == ""):
+                raise Exception;
+              stars = int(request.POST['stars'])
+              if stars < 1 or stars > 5:
+                raise Exception
+              price = float(request.POST['price'])
+              if price < 0 or price > 2500:
+                raise Exception
+              utilities_cost = float(request.POST['utilities_cost'])
+              if utilities_cost < 0 or utilities_cost > 2500:
+                raise Exception
+              bathrooms = int(request.POST['bathrooms'])
+              if bathrooms < 0 or bathrooms > 6:
+                raise Exception
+              bedrooms = int(request.POST['bedrooms'])
+              if bedrooms < 0  or bedrooms > 10:
+                raise Exception
+            except:
+              return HttpResponseRedirect(reverse('manage'))
             hood_arr = []
             util_arr = []
             amen_arr = []
@@ -180,6 +216,7 @@ class Manage(generic.View):
                 x = request.POST.get(amen, "")
                 if x != "":
                     amen_arr.append(x)
+            print(hood_arr, util_arr, amen_arr)
             user = User.objects.get(email=request.user.email)
             distance_to_newcomb = 1.00  #Get This somehow
             neighborhood = ", ".join(hood_arr)
@@ -191,7 +228,7 @@ class Manage(generic.View):
             review.text = text
             review.pub_date = pub_date
             review.neighborhood = neighborhood
-            review.address = address
+            #review.address = address
             review.stars = stars
             review.price = price
             review.utilities = utilities
@@ -202,12 +239,15 @@ class Manage(generic.View):
             review.bedrooms = bedrooms
             review.reviewer = user.pk
             review.distance_to_newcomb = distance_to_newcomb
-            review.save()
+            if(review.reviewer == user.pk):
+              review.save()
 
         elif submit_type == "delete":
             pk = request.POST['pk']
             review = Review.objects.get(pk=pk)
-            review.delete()
+            user = User.objects.get(email=request.user.email)
+            if(review.reviewer == user.pk):
+              review.delete()
 
         return HttpResponseRedirect(reverse('manage'))
 
@@ -215,17 +255,25 @@ class Manage(generic.View):
 @method_decorator(login_required, name='dispatch')
 class allReviews(generic.View):
     def get(self, request, *args, **kwargs):
-        stars = request.GET.get('stars', "1")
-        min_price = request.GET.get('min_price', 0)
-        max_price = request.GET.get('max_price', 2500)
-        max_bed = request.GET.get('max_bed', 10)
-        min_bed = request.GET.get('min_bed', 0)
-        max_bath = request.GET.get('max_bath', 10)
-        min_bath = request.GET.get('min_bath', 0)
-        address = request.GET.get('address', '')
+        print(request.GET)
+        if(len(request.GET.get('reset_type', [])) > 0):
+          return HttpResponseRedirect(reverse('all-review'))
+        try:
+          stars = int(request.GET.get('stars', '1'))
+          min_price = int(request.GET.get('min_price', '0'))
+          max_price = int(request.GET.get('max_price', '2500'))
+          #max_bed = request.GET.get('max_bed', 10)
+          min_bed = int(request.GET.get('min_bed', '1'))
+          #max_bath = request.GET.get('max_bath', 10)
+          min_bath = int(request.GET.get('min_bath', '1'))
+        except:
+          return HttpResponseRedirect(reverse('all-review'))
+        #address = request.GET.get('address', '')
         location = request.GET.get('location', '')
         # print("printing location!!")
         # print(request.GET.get('location', ''))
+        if stars < 1 or stars > 5 or min_bed < 1 or min_bed > 10 or min_bath < 1 or min_bath > 6 or min_price < 0 or max_price < 0 or max_price > 2500 or min_price >2500:
+          return HttpResponseRedirect(reverse('all-review'))
 
         hood_arr = []
         util_arr = []
@@ -242,25 +290,28 @@ class allReviews(generic.View):
             x = request.GET.get(amen, "")
             if x != "":
                 amen_arr.append(x)
+        try:
+          objects = Review.objects.all().filter(stars__gte=stars)
+          objects = objects.filter(price__gte=min_price)
+          objects = objects.filter(price__lte=max_price)
+          objects = objects.filter(bedrooms__gte=min_bed)
+          #objects = objects.filter(bedrooms__lte=max_bed)
+          objects = objects.filter(bathrooms__gte=min_bath)
+          #objects = objects.filter(bathrooms__lte=max_bath)
+          for hood in hood_arr:
+              objects = objects.filter(neighborhood__contains=hood)
+          for amen in amen_arr:
+              objects = objects.filter(amenities__contains=amen)
+          for util in util_arr:
+              objects = objects.filter(utilities__contains=util)
 
-        objects = Review.objects.all().filter(stars__gte=stars)
-        objects = objects.filter(price__gte=min_price)
-        objects = objects.filter(price__lte=max_price)
-        objects = objects.filter(bedrooms__gte=min_bed)
-        objects = objects.filter(bedrooms__lte=max_bed)
-        objects = objects.filter(bathrooms__gte=min_bath)
-        objects = objects.filter(bathrooms__lte=max_bath)
-        for hood in hood_arr:
-            objects = objects.filter(neighborhood__contains=hood)
-        for amen in amen_arr:
-            objects = objects.filter(amenities__contains=amen)
-        for util in util_arr:
-            objects = objects.filter(utilities__contains=util)
+          if location != '':
+              objects = objects.filter(location=location)
 
-        if location != '':
-            objects = objects.filter(location=location)
-
-        objects = objects.order_by('-pub_date')
+          objects = objects.order_by('-pub_date')
+        except:
+          return HttpResponseRedirect(reverse('all-review'))
+        print(stars)
         return render(
             request, "housing_review/all_reviews.html", {
                 'location' : location,
@@ -268,9 +319,7 @@ class allReviews(generic.View):
                 'min_price': min_price,
                 'max_price': max_price,
                 'min_bed': min_bed,
-                'max_bed': max_bed,
                 'min_bath': min_bath,
-                'max_bath': max_bath,
                 'hood_arr': hood_arr,
                 'util_arr': util_arr,
                 'amen_arr': amen_arr,

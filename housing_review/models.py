@@ -27,7 +27,7 @@ def save_user_profile(sender, instance, **kwargs):
     instance.profile.save()
 
 
-NEIGHBORHOODS = ['Wertland', 'Rugby', '14th St', 'JPA', 'Main St']
+NEIGHBORHOODS = ['Wertland', '14th St', 'JPA']
 UTILITIES = ['Electricity', 'Water', 'Internet']
 AMENITIES = ['Parking', 'Pets', 'Pool']
 
