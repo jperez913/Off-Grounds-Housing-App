@@ -94,6 +94,13 @@
     text-align: center;
   }
 
+
+  input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
 </style>
 </div>
 <div class="row" style="width:100%; height:100%; padding-top:70px;">
@@ -191,7 +198,6 @@
                     type="number"
                     min="0.00"
                     max="2500"
-                    step="0.01"
                     value="{{min_price}}"
                     name="min_price"
                     id="minPrice"
@@ -206,7 +212,6 @@
                     type="number"
                     min="0.00"
                     max="2500"
-                    step="0.01"
                     value="{{max_price}}"
                     name="max_price"
                     id="maxPrice"
@@ -219,57 +224,43 @@
 
                 <div class="form-group row">
                     <div class="col-3">
-                      <label for="ex1 font-family: 'Montserrat';"style="font-size:15px;"><b>Bedrooms Min</b></label>
-                      <input
+                      <label for="ex1 font-family: 'Montserrat';"style="font-size:15px;"><b>Min Bedrooms</b></label>
+                      <select
                       class="form-control"
-                      type="number"
-                      min="0"
-                      max="10"
-                      step="1"
-                      value="{{min_bed}}"
                       name="min_bed"
-                      style="height:12px;width:100px;font-size:10pt;"
-                    />
+                      id="{{ review.pk }}bedrooms"
+                    >
+                      <option>1</option>
+                      <option>2</option>
+                      <option>3</option>
+                      <option>4</option>
+                      <option>5</option>
+                      <option>6</option>
+                      <option>7</option>
+                      <option>8</option>
+                      <option>9</option>
+                      <option>10</option>
+                    </select>
                     </div>
                     <div class="col-3">
-                        <label for="ex1"style="font-size:15px;"><b>Bedrooms Max</b></label>
-                        <input
-                        class="form-control"
-                        type="number"
-                        min="0"
-                        max="10"
-                        step="1"
-                        value="{{max_bed}}"
-                        name="max_bed"
-                        style="height:12px;width:100px;font-size:10pt;"
-                      />
-                      </div>
-                    <div class="col-3">
-                      <label for="ex2"style="font-size:15px;"><b>Bathrooms Min</b></label>
-                      <input
-                      class="form-control"
-                      type="number"
-                      min="0"
-                      step="1"
-                      max="10"
-                      value="{{min_bath}}"
-                      name="min_bath"
-                      style="height:12px;width:100px;font-size:10pt;"
-                    />
+                      <label for="ex2"style="font-size:15px;"><b>Min Bathrooms</b></label>
+                      <select
+                class="form-control"
+                name="min_bath"
+                id="{{ review.pk }}bedrooms"
+              >
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+                <option>6</option>
+                <option>7</option>
+                <option>8</option>
+                <option>9</option>
+                <option>10</option>
+              </select>
                     </div>
-                    <div class="col-3">
-                        <label for="ex2"style="font-size:15px;"><b>Bathrooms Max</b></label>
-                        <input
-                        class="form-control"
-                        type="number"
-                        min="0"
-                        step="1"
-                        max="10"
-                        value="{{max_bath}}"
-                        name="max_bath"
-                        style="height:12px;width:100px;font-size:10pt;"
-                      />
-                      </div>
 
                   </div>
 
@@ -412,6 +403,23 @@
         y.style.display = "none";
       }
     }
+    function byAddress(passed) {
+      console.log('yeet');
+      console.log(passed);
+      console.log('yeet2');
+      if (!(passed === 'None'))
+      {
+        let pos = decodeHtml(passed);
+        let posR = pos.replace(/'/g, "\"");
+        console.log("Pos: " + posR);
+        let posObj = JSON.parse(posR);
+
+        document.getElementById("location").value = posR;
+        console.log("location! " + document.getElementById("location").value);
+        document.getElementById("submit_button").click();
+      }
+
+    }
       </script>
     {% for review in object_list %}
     <div class="card" style="width:100%;">
@@ -432,7 +440,8 @@
         </div>
         <div id="review_top_{{review.pk}}">
             <p class="card-text">{{review.text|slice:"0:100"}}...</p>
-            <button class="btn btn-primary" style="width: 25%; margin-top: 10px;" onclick="myFunction({{review.pk}})" class="card-link">Show More</button>
+            <button class="btn btn-primary" style="width: 25%; margin-top: 10px; margin-right: 15px;" onclick="myFunction({{review.pk}})" class="card-link">Show More</button>
+            <button class="btn btn-primary" style="width: 40%; margin-top: 10px;" onclick="byAddress('{{review.location}}')" class="card-link">Filter by this Address</button>
         </div>
 
         <div id="review_bottom_{{review.pk}}" style="display:none">
@@ -443,8 +452,12 @@
           <li class="list-group-item" style="padding: 2px;"><b>Cost of utilities</b>: ${{ review.utilities_cost }}</li>
           <li class="list-group-item" style="padding: 2px;"><b>Included utilities</b>: {{ review.utilities }}</li>
           <li class="list-group-item" style="padding: 2px;"><b>Included amenities</b>: {{ review.amenities }}</li>
+          <div class="row">
           <button class="btn btn-primary"
-              style="width: 25%; margin-top: 10px;" onclick="myFunction({{review.pk}})" class="card-link">Show Less</button>
+              style="width: 25%; margin-top: 10px; margin-right: 20px; margin-left: 15px;" onclick="myFunction({{review.pk}})" class="card-link">Show Less</button>
+          <button class="btn btn-primary" style="width: 40%; margin-top: 10px;" onclick="byAddress('{{review.location}}')" class="card-link">Filter by this Address</button>
+        </div>
+
         </div>
 
 
